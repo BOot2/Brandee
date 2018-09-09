@@ -473,24 +473,6 @@ ${prefix}ban
   } 
 });
 
-client.on("message", message => {
-    if (message.content.startsWith("!ping")) {
-   const embed = new Discord.RichEmbed() 
-        .setColor("RANDOM")
-        .setThumbnail(message.author.avatarURL)
-        .setAuthor(`『${message.author.username}』`, message.author.avatarUR)
-        .setDescription(`
-Message Ping ! ${Date.now() - start} ms
-
-Bot ping !  ${client.ping.toFixed(0)} ms
-`)
-        .setFooter('ping !')
-        message.channel.sendEmbed(embed);
-    }
-});
-
-
-
 
 
 client.login(process.env.BOT_TOKEN);
