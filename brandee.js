@@ -436,7 +436,7 @@ if(ra3d.content.startsWith(prefix + '#cc')) {
 //*By Vudiz
 
 client.on('message', message => {
-  if(message.content == "+help"){
+  if(message.content == "#help"){
     var embed = new Discord.RichEmbed() 
     .setAuthor(message.author.username)
     .setThumbnail(message.author.avatarURL)
