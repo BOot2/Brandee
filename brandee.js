@@ -251,10 +251,6 @@ client.on('message', message => {
   
 
 
-
-
-
-``
 client.on("message", (message) => {
     if (message.content.startsWith("+kick ")) {
       if(!message.member.hasPermission('KICK_MEMBERS')) return message.reply('⚠ ماعندك الصلاحيات');
@@ -265,8 +261,7 @@ client.on("message", (message) => {
             message.channel.send("❌ هناك خطاء حاول مره أخرى❌ ");
         });
     }
-});``
-
+});
 
 
  
