@@ -100,29 +100,6 @@ var mentionned = message.mentions.members.first();
 
 
 
-
-
-
- 
- 
- 
- client.on('message', ra3d => {
-var prefix = "#";
-                        let args = ra3d.content.split(" ").slice(1).join(" ")
-if(ra3d.content.startsWith(prefix + 'cc')) {
-    if(!args) return ra3d.channel.send('`يرجي اختيار كم لون `');
-             if (!ra3d.member.hasPermission('MANAGE_ROLES')) return ra3d.channel.sendMessage('`**⚠ | `[MANAGE_ROLES]` لا يوجد لديك صلاحية**'); 
-              ra3d.channel.send(`**✅ |Created __${args}__ Colors**`);
-                  setInterval(function(){})
-                    let count = 0;
-                    let ecount = 0;
-          for(let x = 1; x < `${parseInt(args)+1}`; x++){
-            ra3d.guild.createRole({name:x,
-              color: 'RANDOM'})
-              }
-            }
-       });
-	   
 	   
 
 client.on('message', async message => {
@@ -369,48 +346,6 @@ eyad.channel.sendEmbed(Embed11).then(eyad => {eyad.delete(15000)})
 
 
 
-  client.on('message', eyad => {
-  if (eyad.content.startsWith('#uvban')) {
-if (!eyad.member.hasPermission("MOVE_MEMBERS")) return eyad.channel.send("**انت لا تمتلك الخاصيه المطلوبه** | ❎ ");
- let men = eyad.mentions.users.first()
- let mas = eyad.author
- if(!men) return eyad.channel.send('`منشن شخص `');
- eyad.guild.channels.forEach(c => {
- c.overwritePermissions(men.id, {
-         CONNECT: true
- })
-    })
-const embed = new Discord.RichEmbed()
-.setColor("RANDOM")
-.setDescription(`**
- <@${men.id}>
- الان يمكنك الدخول الي الرومات الصوتيه :)
-بواسطة : <@${eyad.author.id}> **`)
-.setThumbnail("https://cdn.discordapp.com/attachments/408952032112803850/452093541003296788/start-button-hi.png")
-          
-client.users.get(men.id).sendEmbed(embed)
-const Embed11 = new Discord.RichEmbed()
-.setColor("RANDOM")
-.setAuthor(eyad.guild.name, eyad.guild.iconURL)
-.setDescription(`          <@${men.id}>
-الان يمكنك الدخول الي الرومات الصوتيه
-بواسطة : <@${eyad.author.id}>
-`)
-.setThumbnail("https://cdn.discordapp.com/attachments/408952032112803850/452093541003296788/start-button-hi.png")
-eyad.channel.sendEmbed(Embed11).then(eyad => {eyad.delete(15000)})
-    }
-}) // نهايه كود فك الباند الفويس
-  
-
-
-
-
-
-
-
-
-
-
 
 
   client.on('message', ra3d => {
@@ -458,6 +393,7 @@ ${prefix}ban
  ${prefix}roles  : معرفة رولات السيرفر
  ${prefix} vban : لاعطاء عضو باند من الرومات الصوتيه
   ${prefix}uvban : لفك الباند عن العضو من الرومات الصويته
+ ${prefix}voicesetup : voicesetup
    ${prefix}cc  : لانشاء الالوان + العدد الي بدك اياه  
    
  اخرى 
@@ -472,7 +408,7 @@ ${prefix}ban
 
 
 client.on('message', function(message) {
-	const myID = "345276694191669248";
+	const myID = "366253963768758272";
     let args = message.content.split(" ").slice(1).join(" ");
     if(message.content.startsWith(prefix + "setname")) {
 		        if(message.author.id !== myID) return;
@@ -530,7 +466,7 @@ client.on('message', function(message) {
 
 client.on('message', async message => {
             if(!message.channel.guild) return;
-             if (message.content.startsWith("aphrodite")) {
+             if (message.content.startsWith("#")) {
 let args = message.content.split(' ').slice(1).join(' ');
             let sigMessage = await args;
             
