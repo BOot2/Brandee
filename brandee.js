@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const prefix = '#'
+const prefix = '!'
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -129,14 +129,14 @@ client.on('message', async message => {
      category : 'click here',
       channel : 'click here'
        }
-        if(message.content.startsWith('#temp on')){
+        if(message.content.startsWith('!temp on')){
          if(!message.member.hasPermission(`MANAGE_GUILD`)) return;
           var ggg= message.guild.createChannel('click here', 'category').then(cg => {
            var ccc =message.guild.createChannel('click here', 'voice').then(ch => {
             ch.setParent(cg)
              message.channel.send('**Done ,**')
               client.on('message' , message => {
-               if(message.content === '#temp off') {
+               if(message.content === '!temp off') {
                 if(!message.member.hasPermission(`MANAGE_GUILD`)) return;
                  cg.delete()
                   ch.delete()
@@ -225,7 +225,7 @@ client.on('message', async message => {
 
 
 client.on("message", (message) => {
-    if (message.content.startsWith("#ban ")) {
+    if (message.content.startsWith("!ban ")) {
       if(!message.member.hasPermission('BAN_MEMBERS')) return message.reply('⚠ ماعندك الصلاحيات');
         var member= message.mentions.members.first();
         member.ban().then((member) => {
@@ -241,7 +241,7 @@ client.on("message", (message) => {
 
 client.on('message', message => {
     if (message.author.bot) return;
-    if (message.content.startsWith("#pic")) {
+    if (message.content.startsWith("!pic")) {
         var mentionned = message.mentions.users.first();
     var x5bzm;
       if(mentionned){
@@ -261,7 +261,7 @@ client.on('message', message => {
 
 
 client.on('message' , async (message) => {
-       if(message.content.startsWith("#clear")) {
+       if(message.content.startsWith("!clear")) {
 if(!message.member.hasPermission('MANAGE_MESSAGES')) return 
            let args = message.content.split(" ").slice(1);
  if (isNaN(args[0])) return message.channel.send('**Please supply a valid amount of messages to purge**');
@@ -280,7 +280,7 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return
   
 client.on('message', message => {
               if(!message.channel.guild) return;
-    if(message.content.startsWith('#bc')) {
+    if(message.content.startsWith('!bc')) {
     if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
   if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
     let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
@@ -326,7 +326,7 @@ client.on('message', message => {
 
 
 client.on("message", (message) => {
-    if (message.content.startsWith("+kick ")) {
+    if (message.content.startsWith("!kick ")) {
       if(!message.member.hasPermission('KICK_MEMBERS')) return message.reply('⚠ ماعندك الصلاحيات');
         var member= message.mentions.members.first();
         member.kick().then((member) => {
@@ -372,7 +372,7 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**You
   
   
   client.on('message', eyad => {
-  if (eyad.content.startsWith('#vban')) {
+  if (eyad.content.startsWith('!vban')) {
 if (!eyad.member.hasPermission("MOVE_MEMBERS")) return eyad.channel.send("**انت لا تمتلك الخاصيه المطلوبه** | ❎ ");
 let men = eyad.mentions.users.first()
 let mas = eyad.author
@@ -408,7 +408,7 @@ eyad.channel.sendEmbed(Embed11).then(eyad => {eyad.delete(10000)})
 
 
   client.on('message', eyad => {
-  if (eyad.content.startsWith('#uvban')) {
+  if (eyad.content.startsWith('!uvban')) {
 if (!eyad.member.hasPermission("MOVE_MEMBERS")) return eyad.channel.send("**انت لا تمتلك الخاصيه المطلوبه** | ❎ ");
  let men = eyad.mentions.users.first()
  let mas = eyad.author
@@ -446,9 +446,9 @@ eyad.channel.sendEmbed(Embed11).then(eyad => {eyad.delete(15000)})
 
 
   client.on('message', ra3d => {
-var prefix = "+";
+var prefix = "!";
                         let args = ra3d.content.split(" ").slice(1).join(" ")
-if(ra3d.content.startsWith(prefix + '#cc')) {
+if(ra3d.content.startsWith(prefix + '!cc')) {
     if(!args) return ra3d.channel.send('`يرجي اختيار كم لون `');
              if (!ra3d.member.hasPermission('MANAGE_ROLES')) return ra3d.channel.sendMessage('`**⚠ | `[MANAGE_ROLES]` لا يوجد لديك صلاحية**'); 
               ra3d.channel.send(`**✅ |Created __${args}__ Colors**`);
@@ -468,7 +468,7 @@ if(ra3d.content.startsWith(prefix + '#cc')) {
 //*By Vudiz
 
 client.on('message', message => {
-  if(message.content == "#help"){
+  if(message.content == "!help"){
     var embed = new Discord.RichEmbed() 
     .setAuthor(message.author.username)
     .setThumbnail(message.author.avatarURL)
