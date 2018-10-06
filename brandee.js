@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const lient = new Discord.lient();
 
 const prefix = '!'
 
@@ -59,7 +58,7 @@ client.on('message', message => {
      }
     });
 
-lient.on('message', message => {
+client.on('message', message => {
     if(message.content.includes('discord.gg')){
                                             if(!message.channel.guild) return message.reply('** advertising me on DM ? 🤔   **');
         if (!message.member.hasPermissions(['ADMINISTRATOR'])){
