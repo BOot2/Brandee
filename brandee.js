@@ -48,7 +48,14 @@ client.on('message', message => {
 });
 
 
-
+client.on('message', message => {
+  if (message.content === `${prefix}`) {
+    const embed = new Discord.RichEmbed()
+     .setColor("RANDOM")
+.setFooter('Thank You For use this bot ! .')
+      message.channel.send({embed});
+     }
+    });
 
 lient.on('message', message => {
     if(message.content.includes('discord.gg')){
