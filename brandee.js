@@ -728,8 +728,8 @@ if (!rank) return message.reply('انت لا تمتلك الرتبه المخص�
 
 client.on('message', message => {
     if (message.content.startsWith("!bans")) {
-        message.guild.fetchBans()
-        .then(bans => message.channel.send(`$`{bans.size}`  **Number of persons banned** `))
+        message.guild.fetchBans().then(bans => {
+message.channel.send(``bans.size``);
   .catch(console.error);
 }
 });
