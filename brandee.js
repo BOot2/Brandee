@@ -31,7 +31,6 @@ client.on('ready', () => {
 
 
   client.on('message' , async message => {
-      var prefix = "!";
          if(message.content.startsWith(prefix + "emoji")) {
             let args = message.content.split(" ").slice(1);
     if (args.length < 1) {
