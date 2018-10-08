@@ -726,14 +726,12 @@ if (!rank) return message.reply('انت لا تمتلك الرتبه المخص�
 
 
 
-  client.on('message', message => {
-    if(message.content == '!bans'){
-        message.guild.fetchBans().then(bans => {
-            bans.forEach(user => {
-               message.channel.send('\`#\` <@'+ user.id + '>');
-            });
-        });
-    }
+client.on('message', message => {
+    if (message.content.startsWith("!bans")) {
+        message.guild.fetchBans()
+        .then(bans => message.channel.send(`${bans.size} البوت بند `))
+  .catch(console.error);
+}
 });
   
 
