@@ -133,8 +133,9 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' لي
          READ_MESSAGES: false
            }).then(() => {
                message.reply("تم اخفاء الشات✅ ");
-	   }
-           });
+	 }
+}
+});
 
 
 
@@ -150,7 +151,8 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' لي
            }).then(() => {
                message.reply("تم اظهار الشات✅ ");
 	   }
-           });
+}
+});
 
 
 
