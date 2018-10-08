@@ -30,6 +30,25 @@ client.on('ready', () => {
 
 
 
+  client.on('message' , async message => {
+      var prefix = "!";
+         if(message.content.startsWith(prefix + "emoji")) {
+            let args = message.content.split(" ").slice(1);
+    if (args.length < 1) {
+      message.channel.send('ضع الكلمة التي تريد ان يكتبها البوت بالايموجي');
+  }
+  
+  message.channel.send(
+      args.join(' ')
+          .split('')
+          .map(c => codes[c] || c)
+          .join('')
+  );
+  };
+  });
+
+
+
 
 client.on('message', message => {
     if (!message.guild) return; 
