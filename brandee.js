@@ -30,7 +30,7 @@ client.on('ready', () => {
 
 
 
-const codes = {
+const tornedo = {
     ' ': '   ',
     '0': '0⃣',
     '1': '1⃣',
@@ -48,13 +48,13 @@ const codes = {
     '*': '*⃣'
   };
   
-  'abcdefghijklmnopqrstuvwxyz'.split('').forEach(c => {
-    codes[c] = codes[c.toUpperCase()] = ` :regional_indicator_${c}:`;
+  'abcdefghijklmnopqrstuvwxyz'.split('').forEach(t => {
+    tornedo[t] = tornedo[t.toUpperCase()] = ` :regional_indicator_${t}:`;
   });
   
   
   client.on('message' , async message => {
-      var prefix = "-";
+      var prefix = "!";
          if(message.content.startsWith(prefix + "emoji")) {
             let args = message.content.split(" ").slice(1);
     if (args.length < 1) {
@@ -64,11 +64,12 @@ const codes = {
   message.channel.send(
       args.join(' ')
           .split('')
-          .map(c => codes[c] || c)
+          .map(t => tornedo[t] || t)
           .join('')
   );
   };
   });
+
 
 
 
