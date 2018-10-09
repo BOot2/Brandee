@@ -1161,55 +1161,32 @@ var mentionned = message.mentions.members.first();
 
 
 
- client.on('message',message =>{
-       const args = message.content.slice(prefix.length).trim().split(/ +/g);
+client.on('message', message => {
+     const args = message.content.slice(prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
-if(message.content.toLowerCase() === prefix + "myinv") {
-let guild = message.guild
-var codes = [""]
- var nul = 0
-      
-guild.fetchInvites()
-.then(invites => {
-invites.forEach(invite => {
-if (invite.inviter === message.author) {
-    nul+=invite.uses
-codes.push(`discord.gg/${invite.code}`)
-}
- 
-})
-  if (nul > 0) {
-      const e = new Discord.RichEmbed()
-      .addField(`${message.author.username}`, `لقد قمت بدعوة **${nul}** شخص`)
-      .setColor('#36393e')
-      message.channel.send(e)
-  }else {
-                       var embed = new Discord.RichEmbed()
-                        .setColor("#000000")
-                        .addField(`${message.author.username}`, `لم تقم بدعوة أي شخص لهذة السيرفر`)
+if(message.content.toLowerCase() === prefix + "guild") {
+         let i = 1;
+       const botssize = message.guild.members.filter(m=>m.user.bot).map(m=>`${i++} - <@${m.id}>`);
+            const millis = new Date().getTime() - message.guild.createdAt.getTime();
+    const now = new Date();
+    const createdAt = millis / 1000 / 60 / 60 / 24;
+    var heg = message.guild;
 
-                       message.channel.send({ embed: embed });
-                        return;
-                    }
-}).then(m => {
-if (codes.length < 0) {
-    var embed = new Discord.RichEmbed()
-.setColor("#000000")
-.addField(`Your invite codes in ${message.guild.name}`, `You currently don't have any active invites! Please create an invite and start inviting, then you will be able to see your codes here!`)
-message.channel.send({ embed: embed });
-return;
-} else {
-    var embed = new Discord.RichEmbed()
-.setColor("#000000")
-.addField(`Your invite codes in ${message.guild.name}`, `Invite Codes :\n${codes.join("\n")}`)
-.setColor('#36393e')
-message.channel.send({ embed: embed });
-return;
-}
+        const embed = new Discord.RichEmbed()
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .addField('GuidlOwner',message.guild.owner,true)
+        .addField('Guild ID', message.guild.id,true)
+        .addField('Guild MemberCount', `${message.guild.memberCount}`+` [Online : ${message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size} ]`)
+        .addField('Guild BotCount',` ${message.guild.members.filter(m=>m.user.bot).size} `)
+        .addField('Guild Channels',`\`🔊\` ${message.guild.channels.filter(m => m.type === 'voice').size} | `+`\`#\`${message.guild.channels.filter(m => m.type === 'text').size} `)
+        .addField('Guild RolesCount',` ${message.guild.roles.size} `,true)
+        .addField('Created',`\`منذ  ${createdAt.toFixed(0)}  يوم\`  ` ,true)
+        .addField('Guild Region',message.guild.region,true)
+                  .setColor('#36393e')
+        
+        message.channel.send(embed)
+    }
 })
-}
-
-});
 
 
 
