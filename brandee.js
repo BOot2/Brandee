@@ -1062,19 +1062,23 @@ if (message.content.startsWith(prefix + 'setstreaming')) {
 });
 
 
-const adminprefix = "!";
-const devs = ['488334414124810240', '366253963768758272'];
-
-client.on('message', message => {
-if(message.content === adminprefix + "restart") {
-      if (!devs.includes(message.author.id)) return;
-          message.channel.send(` Restarting : ${message.author.username}`);
-        console.log(`⚠️ Restarting... ⚠️`);
-        client.destroy();
-        child_process.fork(__dirname + "/bot.js");
-        console.log(`Restart . . . dond`);
-    }
+      client.on("message", message => {
+              
+          if(!message.channel.guild) return;
+   if(message.author.bot) return;
+ if(message.content.toLowerCase() === prefix + "avatar server") {
+          if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
+          const embed = new Discord.RichEmbed()
   
+      .setTitle(`This is  ** ${message.guild.name} **  Photo !`)
+  .setAuthor(message.author.username, message.guild.iconrURL)
+.setColor('#36393e')
+    .setImage(message.guild.iconURL)
+    .setURL(message.guild.iconrURL)
+                    .setTimestamp()
+
+   message.channel.send({embed});
+      }
   });
 
 client.login(process.env.BOT_TOKEN);
