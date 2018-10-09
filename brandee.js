@@ -1190,59 +1190,14 @@ if(message.content.toLowerCase() === prefix + "server") {
 
 
 client.on('message', message => {
-     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    if (message.content.toLowerCase() === prefix + "help2") {
-        if(!message.channel.guild) return;
-    let embed = new Discord.RichEmbed()
-  .setColor('#36393e')
-  .setTitle("Check Your DM.")
-     const e = new Discord.RichEmbed()
-     .setColor('#36393e')
-         .setTitle('Click To Join Server')
-         .setURL('No One')
-         .setDescription(`
-     
-     Main Commands : 
-     
-      
-topinvites   |  توب انفايت
-invinfo  [invitecode] |  معلومات عن الدعوه
-guild     |  معلومات عن السيرفر
-userinfo  |  معلومات عن العضو
-avatar    |  صوره حسابك
-image     |  صوره السيرفر
-myinv     |  روابط الانفايت حقتك وكم شخص دخلت
-stats     |  معلومات عن البوت
-    
-   Admin Commands : 
-     
-createcolors  [number] |  انشاء الوان
-clear   [number]   |  تنظيف الشات
-ban        |  حظر العضو
-tempban    |  حظر العضو  لوقت معين
-kick       |  طرد العضو
-mute       |  اعطاء العضو ميوت كتابي
-unmute     |  فك الميوت الكتابي
-role all [rolename]        |  اعطاء الجميع رتبه
-role humans [rolename]     |  اعطاء الاعضاء رتبه وليس البوتات
-role bots [rolename]       |  اعطاء البوتات رتبه
-role [Mention] [rolename]  |  اعطاء عضو رتبه
-mc         |  قفل الشات
-bc         |  رساله جماعيه بدون امبد
-moveall    |  سحب الجميع الي رومك الصوتي
-ebc        |  رساله جماعيه بامبد
-bans       |  عدد المحظورين بالسيرفر
-umc        |  فتح الشات
-     
-     
-`)
-
-  message.author.sendEmbed(e).catch(error => message.reply('Your DM is CLosed'))
-  message.channel.send('<@' + message.author.id + '>').then(message => message.delete(5000));
-  message.channel.sendEmbed(embed).then(message => message.delete(5000));
-  }
-  });
+        if (message.content === prefix + "invite") {
+            if(!message.channel.guild) return;
+        let embed = new Discord.RichEmbed()
+        .setTitle(`:small_orange_diamond: Click Here To Invite Onixes. `)
+        .setURL(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
+     message.channel.sendEmbed(embed);
+       }
+   });
 
 
 
