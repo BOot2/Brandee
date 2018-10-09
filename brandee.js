@@ -1085,7 +1085,7 @@ if (message.content.startsWith(prefix + 'setstreaming')) {
 client.on('message' , message => {
      const args = message.content.slice(prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
-if(message.content.toLowerCase() === prefix + "!id") {
+if(message.content.toLowerCase() === prefix + "id info") {
      const millis = new Date().getTime() - message.guild.createdAt.getTime();
     const now = new Date();
     const createdAt = millis / 1000 / 60 / 60 / 24;
@@ -1158,6 +1158,43 @@ var mentionned = message.mentions.members.first();
  })
 }
  });
+
+
+ const arraySort = require('array-sort'),
+          table = require('table');
+
+client.on('message' , async (message) => {
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+const command = args.shift().toLowerCase();
+
+if(message.content.toLowerCase() === prefix + "topinvites") {
+                 if(message.author.bot) return;
+        if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
+
+  var invites = await message.guild.fetchInvites();
+
+    invites = invites.array();
+
+    arraySort(invites, 'uses', { reverse: true });
+
+    let possibleInvites = ['User Invited |  Uses '];
+    invites.forEach(i => {
+        if (i.uses === 0) { 
+            return;
+            
+        }
+      possibleInvites.push(['\n\ ' +'<@'+ i.inviter.id +'>' + '  :  ' +   i.uses]);
+       
+     
+    })
+    
+    const embed = new Discord.RichEmbed()
+ .setColor('#36393e')
+    .addField("Top Invites." ,`${(possibleInvites)}`)
+
+    message.channel.send(embed)
+    }
+});
 
 
 client.login(process.env.BOT_TOKEN);
