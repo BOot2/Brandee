@@ -1189,17 +1189,14 @@ if(message.content.toLowerCase() === prefix + "server") {
 })
 
 
-client.on('message', function(message) {
-    if (message.channel.type === "dm") {
-        if (message.author.id === client.user.id) return;
-        var iiMo = new Discord.RichEmbed()
-            .setColor('RANDOM')
-            .setTimestamp()
-            .setTitle(' New Dm Mesage ')
-            .setThumbnail(`${message.author.avatarURL}`)
-            .setDescription(`\`${message.content}\``)
-            .setFooter(`From : ${message.author.tag}`)
-        client.channels.get("488334414124810240").send({ embed: iiMo });
+client.on('message', message => {
+if(message.content.toLowerCase() === prefix + "bot") {
+
+message.channel.send(`
+__Servers : ${client.guilds.size}__
+__Users : ${client.users.size}__
+__Channels : ${client.channels.size}__
+`);
     }
 });
 
