@@ -1189,16 +1189,18 @@ if(message.content.toLowerCase() === prefix + "server") {
 })
 
 
- client.on('message', message => {  
+client.on('message', message => {
+  
+    
         if (message.author.id === client.user.id) return;
         if (message.guild) {
        let embed = new Discord.RichEmbed()
         let args = message.content.split(' ').slice(1).join(' ');
-    if(message.content.split(' ')[0] == prefix + 'bc2') {
+    if(message.content.split(' ')[0] == prefix + '2bc') {
          message.delete(5000)
         if(!message.channel.guild) return;
         if (!args[1]) {
-    message.channel.send(`${prefix}` + "**bc <message>**");
+    message.channel.send(`${prefix}` + "**ebc <message>**");
     return;
     }
             message.guild.members.forEach(m => {
@@ -1208,15 +1210,14 @@ if(message.content.toLowerCase() === prefix + "server") {
                 .addField('» Sent By : : ', `${message.author.username}#${message.author.discriminator}`)
                 .addField('» Message :  : ', args)
                 .setColor('#ff0000')
-                m.send(`${m}`);
-                m.send('\n\ Server : '+`${message.guild.name} \n\ `+ 'Sent By : ' + `${message.author.username}#${message.author.discriminator}\n\ ` + 'Message : ' + args);
+                // m.send(`[${m}]`);
+                m.send(`${m}`,{embed: bc});
             });
         }
         } else {
             return;
         }
     });
-
 
 
 client.login(process.env.BOT_TOKEN);
