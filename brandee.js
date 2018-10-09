@@ -1164,7 +1164,7 @@ var mentionned = message.mentions.members.first();
 client.on('message', message => {
      const args = message.content.slice(prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
-if(message.content.toLowerCase() === prefix + "guild") {
+if(message.content.toLowerCase() === prefix + "server") {
          let i = 1;
        const botssize = message.guild.members.filter(m=>m.user.bot).map(m=>`${i++} - <@${m.id}>`);
             const millis = new Date().getTime() - message.guild.createdAt.getTime();
@@ -1174,20 +1174,82 @@ if(message.content.toLowerCase() === prefix + "guild") {
 
         const embed = new Discord.RichEmbed()
         .setAuthor(message.author.tag, message.author.avatarURL)
-        .addField('GuidlOwner',message.guild.owner,true)
-        .addField('Guild ID', message.guild.id,true)
-        .addField('Guild MemberCount', `${message.guild.memberCount}`+` [Online : ${message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size} ]`)
-        .addField('Guild BotCount',` ${message.guild.members.filter(m=>m.user.bot).size} `)
-        .addField('Guild Channels',`\`🔊\` ${message.guild.channels.filter(m => m.type === 'voice').size} | `+`\`#\`${message.guild.channels.filter(m => m.type === 'text').size} `)
-        .addField('Guild RolesCount',` ${message.guild.roles.size} `,true)
+        .addField('serverOwner',message.guild.owner,true)
+        .addField('server ID', message.guild.id,true)
+        .addField('server MemberCount', `${message.guild.memberCount}`+` [Online : ${message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size} ]`)
+        .addField('server BotCount',` ${message.guild.members.filter(m=>m.user.bot).size} `)
+        .addField('server Channels',`\`🔊\` ${message.guild.channels.filter(m => m.type === 'voice').size} | `+`\`#\`${message.guild.channels.filter(m => m.type === 'text').size} `)
+        .addField('server RolesCount',` ${message.guild.roles.size} `,true)
         .addField('Created',`\`منذ  ${createdAt.toFixed(0)}  يوم\`  ` ,true)
-        .addField('Guild Region',message.guild.region,true)
+        .addField('server Region',message.guild.region,true)
                   .setColor('#36393e')
         
         message.channel.send(embed)
     }
 })
 
+
+client.on('message', async message => {
+let args = message.content.split(' ').slice(1).join(' ');
+
+if(message.content.toLowerCase() === prefix + "tempban") {
+  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply('You Need  \` BAN_MEMBERS\` Permission  ').then(message => message.delete(4000))
+ 
+  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("I Don't Have ` BAN_MEMBERS ` Permission").then(message => message.delete(4000))
+
+
+      let mention = message.mentions.members.first();
+      if(!mention) return message.reply('Error : `Mention a User`').then(msg => {
+        msg.delete(3500);
+        message.delete(3500);
+      });
+      if(mention.highestRole.position >= message.guild.member(message.author).highestRole.positon) return message.reply('Error : ` You Cann’t Ban User Have Higher Rank Than You ` ').then(msg => {
+        msg.delete(3500);
+        message.delete(3500);
+      });
+      if(mention.highestRole.positon >= message.guild.member(client.user).highestRole.positon) return message.reply('Error : ` I Cann’t Ban User Have Higher Rank Than Me ` ').then(msg => {
+        msg.delete(3500);
+        message.delete(3500);
+      });
+      if(mention.id === message.author.id) return message.reply('Error : \` You Cannot Ban Your Self \`').then(msg => {
+        msg.delete(3500);
+        message.delete(3500);
+      });
+
+       let duration = args[2];
+       if(!duration) return message.reply('Error :\` Type The Ban Duration \` ').then(msg => {
+         msg.delete(3500);
+         message.delete(3500);
+       });
+       if(isNaN(duration)) return message.reply('Error : `Invaild Duration`').then(msg => {
+         msg.delete(3500);
+         message.delete(3500);
+       });
+
+       let reason = message.content.split(" ").slice(3).join(" ");
+       if(!reason) reason = 'غير محدد';
+
+       let thisEmbed = new Discord.RichEmbed()
+       .setAuthor(mention.user.username , mention.user.avatarURL)
+       .setTitle('Banned')
+       .setThumbnail(mention.avatarURL)
+       .addField('# - Server :',message.guild.name,true)
+       .addField('# - By :',message.author,true)
+       .addField('# - Reason :',reason)
+                 .setColor('#36393e')
+       .setFooter(message.author.tag,message.author.avatarURL);
+       mention.send(thisEmbed).then(() => {
+       mention.ban({
+         reason: reason,
+       });
+       message.channel.send(`** ${mention.user.username} banned from the server ! :airplane: **  `)
+       setTimeout(() => {
+         if(duration === 0) return;
+         message.guild.unban(mention);
+       },duration * 60000);
+     });
+   }
+});
 
 
 client.login(process.env.BOT_TOKEN);
