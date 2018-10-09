@@ -972,20 +972,24 @@ message.channel.send(embed)
 })
 
 
-   client.on('message', message => {
-            if (message.content.startsWith(prefix + "bot")) {
-     let embed = new Discord.RichEmbed()
-.setThumbnail(message.author.avatarURL)
-.addField(' السيرفرات🌐',`[${client.guilds.size}]  `)
-.addField(' الاعضاء👥 ',` [${client.users.size}] `)
-.addField('الرومات📚 ',`[${client.channels.size}]`) 
-.addField(' البنق🚀 ',`[${Date.now() - message.createdTimestamp}]`) 
-.addField('البشير شو  + صاحب البوت ',`! 1 `)
-.setColor('#7d2dbe')
-  message.channel.sendEmbed(embed);
-    }
-});
 
+client.on('im hi lol eread lw wow hi ready', function(){    
+    var ms = 40000 ;    
+    var setGame = ['الـبـشـيـيـر شـو'];    
+    var i = -1;    
+    var j = 0;    
+    setInterval(function (){    
+        if( i == -1 ){    
+j = 1;    
+       }    
+        if( i == (setGame.length)-1 ){    
+            j = -1;    
+      }    
+       i = i+j;    
+        client.user.setGame(setGame[i],`https://www.twitch.tv/istvzazi`);    
+}, ms);    
+    
+});
 
 
 
