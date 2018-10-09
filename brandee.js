@@ -791,7 +791,7 @@ possibleInvites.push([inviteCount, exec]);
         let daysJoined = millisJoined / 1000 / 60 / 60 / 24;
 const alpha = new Discord.RichEmbed()
 .setAuthor(img)
-.addField('🏆 Invite Infos',  `\n\n► لقد قمت بدعوة ما مجموعه \`\`${Number(inviteCount)}\`\` عضو.\n\n► لقد انضممت لسرفر مند\`${daysJoined.toFixed(0)}\`يوم .\n\n► لقد انضممت بهذه الدعوة\`${exec}\``,true)
+.addField(' 🏆   Invite Infos  ',  `\n\n► لقد قمت بدعوة ما مجموعه \`\`${Number(inviteCount)}\`\` عضو.\n\n► لقد انضممت لسرفر مند\`${daysJoined.toFixed(0)}\`يوم .\n\n► لقد انضممت بهذه الدعوة\`${exec}\``,true)
 .setThumbnail(imagemm)
 .setColor(0x4959e9);
 message.channel.send(alpha);
@@ -802,18 +802,15 @@ message.channel.send(alpha);
   });
 
 
-	client.on('message', message => {
-    if(message.content === "!info") {
-        const embed = new Discord.RichEmbed()
-        .setColor("#00FFFF")
-  .addField('**الذاكرة المستخدمة 💾**', `${(process.memoryUsage().rss / 1000000).toFixed()}MB`, true)
-         .addField('**سرعة الاتصال📡**' , `${Date.now() - message.createdTimestamp}` + ' ms')
-        .addField('**استخدام المعالج💿**', `${(process.cpuUsage().rss / 10000).toFixed()}%`, true)
-        .addField('**:globe_with_meridians: عدد السيرفرات**' , `${client.guilds.size}`, true)
-        .addField('**عدد المستخدمين 👥 **' , `${client.users.size}`, true)
-               message.channel.sendEmbed(embed);
-           }
-});
+ 
+ client.on('message' , message => {
+  if(message.author.bot) return;
+  if(message.content.startsWith(prefix + "ping")) {
+ message.channel.send('Pong...').then((msg) => {
+      msg.edit(`\`\`\`javascript\nTime taken: ${msg.createdTimestamp - message.createdTimestamp} ms.\nDiscord API: ${Math.round(client.ping)} ms.\`\`\``);
+ })
+  }  
+ });
 
 
 
