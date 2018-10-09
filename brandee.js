@@ -1189,67 +1189,34 @@ if(message.content.toLowerCase() === prefix + "server") {
 })
 
 
-client.on('message', async message => {
-let args = message.content.split(' ').slice(1).join(' ');
+ client.on('message', message => {  
+        if (message.author.id === client.user.id) return;
+        if (message.guild) {
+       let embed = new Discord.RichEmbed()
+        let args = message.content.split(' ').slice(1).join(' ');
+    if(message.content.split(' ')[0] == prefix + 'bc2') {
+         message.delete(5000)
+        if(!message.channel.guild) return;
+        if (!args[1]) {
+    message.channel.send(`${prefix}` + "**bc <message>**");
+    return;
+    }
+            message.guild.members.forEach(m => {
+       if(!message.member.hasPermission('ADMINISTRATOR')) return;
+                var bc = new Discord.RichEmbed()
+                .addField('» Server :', `${message.guild.name}`)
+                .addField('» Sent By : : ', `${message.author.username}#${message.author.discriminator}`)
+                .addField('» Message :  : ', args)
+                .setColor('#ff0000')
+                m.send(`${m}`);
+                m.send('\n\ Server : '+`${message.guild.name} \n\ `+ 'Sent By : ' + `${message.author.username}#${message.author.discriminator}\n\ ` + 'Message : ' + args);
+            });
+        }
+        } else {
+            return;
+        }
+    });
 
-if(message.content.toLowerCase() === prefix + "tempban") {
-  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply('You Need  \` BAN_MEMBERS\` Permission  ').then(message => message.delete(4000))
- 
-  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("I Don't Have ` BAN_MEMBERS ` Permission").then(message => message.delete(4000))
-
-
-      let mention = message.mentions.members.first();
-      if(!mention) return message.reply('Error : `Mention a User`').then(msg => {
-        msg.delete(3500);
-        message.delete(3500);
-      });
-      if(mention.highestRole.position >= message.guild.member(message.author).highestRole.positon) return message.reply('Error : ` You Cann’t Ban User Have Higher Rank Than You ` ').then(msg => {
-        msg.delete(3500);
-        message.delete(3500);
-      });
-      if(mention.highestRole.positon >= message.guild.member(client.user).highestRole.positon) return message.reply('Error : ` I Cann’t Ban User Have Higher Rank Than Me ` ').then(msg => {
-        msg.delete(3500);
-        message.delete(3500);
-      });
-      if(mention.id === message.author.id) return message.reply('Error : \` You Cannot Ban Your Self \`').then(msg => {
-        msg.delete(3500);
-        message.delete(3500);
-      });
-
-       let duration = args[2];
-       if(!duration) return message.reply('Error :\` Type The Ban Duration \` ').then(msg => {
-         msg.delete(3500);
-         message.delete(3500);
-       });
-       if(isNaN(duration)) return message.reply('Error : `Invaild Duration`').then(msg => {
-         msg.delete(3500);
-         message.delete(3500);
-       });
-
-       let reason = message.content.split(" ").slice(3).join(" ");
-       if(!reason) reason = 'غير محدد';
-
-       let thisEmbed = new Discord.RichEmbed()
-       .setAuthor(mention.user.username , mention.user.avatarURL)
-       .setTitle('Banned')
-       .setThumbnail(mention.avatarURL)
-       .addField('# - Server :',message.guild.name,true)
-       .addField('# - By :',message.author,true)
-       .addField('# - Reason :',reason)
-                 .setColor('#36393e')
-       .setFooter(message.author.tag,message.author.avatarURL);
-       mention.send(thisEmbed).then(() => {
-       mention.ban({
-         reason: reason,
-       });
-       message.channel.send(`** ${mention.user.username} banned from the server ! :airplane: **  `)
-       setTimeout(() => {
-         if(duration === 0) return;
-         message.guild.unban(mention);
-       },duration * 60000);
-     });
-   }
-});
 
 
 client.login(process.env.BOT_TOKEN);
