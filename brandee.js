@@ -1062,5 +1062,20 @@ if (message.content.startsWith(prefix + 'setstreaming')) {
 });
 
 
+const adminprefix = "!";
+const devs = ['488334414124810240', '366253963768758272'];
+
+client.on('message', message => {
+if(message.content === adminprefix + "restart") {
+      if (!devs.includes(message.author.id)) return;
+          message.channel.send(` Restarting : ${message.author.username}`);
+        console.log(`⚠️ Restarting... ⚠️`);
+        client.destroy();
+        child_process.fork(__dirname + "/bot.js");
+        console.log(`Restart . . . dond`);
+    }
+  
+  });
+
 client.login(process.env.BOT_TOKEN);
 
