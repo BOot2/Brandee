@@ -973,23 +973,32 @@ message.channel.send(embed)
 
 
 
-client.on('im hi lol eread lw wow hi ready', function(){    
-    var ms = 40000 ;    
-    var setGame = ['الـبـشـيـيـر شـو'];    
-    var i = -1;    
-    var j = 0;    
-    setInterval(function (){    
-        if( i == -1 ){    
-j = 1;    
-       }    
-        if( i == (setGame.length)-1 ){    
-            j = -1;    
-      }    
-       i = i+j;    
-        client.user.setGame(setGame[i],`https://www.twitch.tv/istvzazi`);    
-}, ms);    
+client.on("message", message => {
+ 
+            var args = message.content.substring(prefix.length).split(" ");
+            if (message.content.startsWith(prefix + "$clear")) {
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('  ⚠  ** **');
+        var msg;
+        msg = parseInt();
+      
+      message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
+      message.channel.sendMessage("", {embed: {
+        title: "Done | تــم",
+        color: 0x06DF00,
+        description: "تم مسح الرسائل بنجاح",
+        footer: {
+          text: "Frix v0.1"
+        }
+      }}).then(msg => {msg.delete(3000)});
+                          }
+
+     
+
+        
     
-});
+
+         
+     });
 
 
 
