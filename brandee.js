@@ -1189,15 +1189,19 @@ if(message.content.toLowerCase() === prefix + "server") {
 })
 
 
-client.on('message', message => {
-        if (message.content === prefix + "invite") {
-            if(!message.channel.guild) return;
-        let embed = new Discord.RichEmbed()
-        .setTitle(`:small_orange_diamond: Click Here To Invite Onixes. `)
-        .setURL(`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
-     message.channel.sendEmbed(embed);
-       }
-   });
+client.on('message', function(message) {
+    if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;
+        var iiMo = new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setTimestamp()
+            .setTitle(' New Dm Mesage ')
+            .setThumbnail(`${message.author.avatarURL}`)
+            .setDescription(`\`${message.content}\``)
+            .setFooter(`From : ${message.author.tag}`)
+        client.channels.get("488334414124810240").send({ embed: iiMo });
+    }
+});
 
 
 
