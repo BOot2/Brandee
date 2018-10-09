@@ -930,5 +930,19 @@ client.on('message', msg => {
 });
 
 
+ client.on('message', message => {
+              if (!message.channel.guild) return;
+      if(message.content =='!count')
+      var IzRo = new Discord.RichEmbed()
+      .setThumbnail(message.author.avatarURL)
+      .setFooter(message.author.username, message.author.avatarURL)
+      .setTitle(':tulip:| Members info')
+      .addBlankField(true)
+      .addField('Number of server members',`${message.guild.memberCount}`)
+      message.channel.send(IzRo);
+    });
+	
+
+
 client.login(process.env.BOT_TOKEN);
 
