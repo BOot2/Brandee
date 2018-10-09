@@ -1189,17 +1189,23 @@ if(message.content.toLowerCase() === prefix + "server") {
 })
 
 
-client.on('message', message => {
-if(message.content.toLowerCase() === prefix + "bot") {
-
-message.channel.send(`
-__Servers : ${client.guilds.size}__
-__Users : ${client.users.size}__
-__Channels : ${client.channels.size}__
-`);
-    }
-});
-
+client.on('message', (message) => {
+   if(message.author.bot) return;
+ 
+   if(message.content === '!alloffline') {
+    
+    let bot;
+    let i = 0;
+   
+     let bots = message.guild.members.filter(m => m.user.bot && m.user.presence.status === 'offline');
+     let map = bots.map(bo => {
+       bot += `#${++i} - <@${bo.user.id}>\n`
+     })
+     
+     message.channel.send(bot);
+    
+   }
+})
 
 
 
