@@ -1160,36 +1160,56 @@ var mentionned = message.mentions.members.first();
  });
 
 
-client.on('message', message => {
-     const args = message.content.slice(prefix.length).trim().split(/ +/g);
+
+ client.on('message',message =>{
+       const args = message.content.slice(prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
-if(message.content.toLowerCase() === prefix + "invinfo") {
-         if(!message.guild.member(client.user).hasPermission("ADMINISTRATOR")) return message.reply("I Don't Have Permission");
-	    if(!args[1]) return message.reply('But An Invite Code')
-        if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
-var [embed,inv,uses]=[new Discord.RichEmbed(),null,''];
-message.guild.fetchInvites().then(i =>{
-    
-    inv=i.get(args[1])
-    if(inv.maxUses){
-        uses=+inv.uses+"/"+inv.maxUses
-    }else{
-        uses=+inv.uses
-    }
+if(message.content.toLowerCase() === prefix + "myinv") {
+let guild = message.guild
+var codes = [""]
+ var nul = 0
+      
+guild.fetchInvites()
+.then(invites => {
+invites.forEach(invite => {
+if (invite.inviter === message.author) {
+    nul+=invite.uses
+codes.push(`discord.gg/${invite.code}`)
+}
+ 
+})
+  if (nul > 0) {
+      const e = new Discord.RichEmbed()
+      .addField(`${message.author.username}`, `لقد قمت بدعوة **${nul}** شخص`)
+      .setColor('#36393e')
+      message.channel.send(e)
+  }else {
+                       var embed = new Discord.RichEmbed()
+                        .setColor("#000000")
+                        .addField(`${message.author.username}`, `لم تقم بدعوة أي شخص لهذة السيرفر`)
 
+                       message.channel.send({ embed: embed });
+                        return;
+                    }
+}).then(m => {
+if (codes.length < 0) {
+    var embed = new Discord.RichEmbed()
+.setColor("#000000")
+.addField(`Your invite codes in ${message.guild.name}`, `You currently don't have any active invites! Please create an invite and start inviting, then you will be able to see your codes here!`)
+message.channel.send({ embed: embed });
+return;
+} else {
+    var embed = new Discord.RichEmbed()
+.setColor("#000000")
+.addField(`Your invite codes in ${message.guild.name}`, `Invite Codes :\n${codes.join("\n")}`)
+.setColor('#36393e')
+message.channel.send({ embed: embed });
+return;
+}
+})
+}
 
-
-      message.channel.send(new Discord.RichEmbed().setTitle('Invite Info').setAuthor(message.author.tag,message.author.displayAvatarURL)
-    .addField('Inviter : ',i.get(args[1]).inviter,true)
-    .addField('CreatedAt',moment(i.get(args[1]).createdAt).format('YYYY/M/DD:h'),true)
-    .addField('ExpiresAt',moment(i.get(args[1]).expiresAt).format('YYYY/M/DD:h'),true)
-    .addField('Channel',i.get(args[1]).channel,true)
-    .addField('Uses',uses,true)
-    .addField('MaxAge',i.get(args[1]).maxAge,true).setColor(030101)
-    
-);
-        })}
-    });
+});
 
 
 
