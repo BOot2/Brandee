@@ -1160,41 +1160,37 @@ var mentionned = message.mentions.members.first();
  });
 
 
- const arraySort = require('array-sort'),
-          table = require('table');
-
-client.on('message' , async (message) => {
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+client.on('message', message => {
+     const args = message.content.slice(prefix.length).trim().split(/ +/g);
 const command = args.shift().toLowerCase();
-
-if(message.content.toLowerCase() === prefix + "topinvites") {
-                 if(message.author.bot) return;
+if(message.content.toLowerCase() === prefix + "invinfo") {
+         if(!message.guild.member(client.user).hasPermission("ADMINISTRATOR")) return message.reply("I Don't Have Permission");
+	    if(!args[1]) return message.reply('But An Invite Code')
         if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
-
-  var invites = await message.guild.fetchInvites();
-
-    invites = invites.array();
-
-    arraySort(invites, 'uses', { reverse: true });
-
-    let possibleInvites = ['User Invited |  Uses '];
-    invites.forEach(i => {
-        if (i.uses === 0) { 
-            return;
-            
-        }
-      possibleInvites.push(['\n\ ' +'<@'+ i.inviter.id +'>' + '  :  ' +   i.uses]);
-       
-     
-    })
+var [embed,inv,uses]=[new Discord.RichEmbed(),null,''];
+message.guild.fetchInvites().then(i =>{
     
-    const embed = new Discord.RichEmbed()
- .setColor('#36393e')
-    .addField("Top Invites." ,`${(possibleInvites)}`)
-
-    message.channel.send(embed)
+    inv=i.get(args[1])
+    if(inv.maxUses){
+        uses=+inv.uses+"/"+inv.maxUses
+    }else{
+        uses=+inv.uses
     }
-});
+
+
+
+      message.channel.send(new Discord.RichEmbed().setTitle('Invite Info').setAuthor(message.author.tag,message.author.displayAvatarURL)
+    .addField('Inviter : ',i.get(args[1]).inviter,true)
+    .addField('CreatedAt',moment(i.get(args[1]).createdAt).format('YYYY/M/DD:h'),true)
+    .addField('ExpiresAt',moment(i.get(args[1]).expiresAt).format('YYYY/M/DD:h'),true)
+    .addField('Channel',i.get(args[1]).channel,true)
+    .addField('Uses',uses,true)
+    .addField('MaxAge',i.get(args[1]).maxAge,true).setColor(030101)
+    
+);
+        })}
+    });
+
 
 
 client.login(process.env.BOT_TOKEN);
