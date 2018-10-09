@@ -1034,5 +1034,33 @@ let heroo = new Discord.RichEmbed()
 });
 
 
+client.on('message', message => {
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id !== '488334414124810240') return;
+
+if (message.content.startsWith(prefix + 'setplaying')) {
+  client.user.setGame(argresult);
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+} else 
+
+if (message.content.startsWith(prefix + 'setwatching')) {
+client.user.setActivity(argresult, {type:'WATCHING'});
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+} else 
+if (message.content.startsWith(prefix + 'setlistening')) {
+client.user.setActivity(argresult, {type:'LISTENING'});
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+} else 
+
+if (message.content.startsWith(prefix + 'setstreaming')) {
+  client.user.setGame(argresult, "https://www.twitch.tv/Justin-Ly0001");
+    message.channel.sendMessage(`**:white_check_mark:  : ${argresult}**`)
+}
+
+});
+
+
 client.login(process.env.BOT_TOKEN);
 
