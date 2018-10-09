@@ -1189,35 +1189,313 @@ if(message.content.toLowerCase() === prefix + "server") {
 })
 
 
-client.on('message', message => {
-  
-    
-        if (message.author.id === client.user.id) return;
-        if (message.guild) {
+
+//*log
+
+client.on("guildCreate", guild => {
+var gimg;
+var gname;
+var gmemb;
+var groles;
+
+gname = guild.name;
+gimg = guild.iconURL;
+gmemb = guild.members.size;
+groles = guild.roles.map(r=> {return r.name});
+  let channel = client.channels.get('475883237001134110')
+const e = new Discord.RichEmbed()
+.setColor('#36393e')
+.addField('Bot Joined Guild : ', `${guild.name}`)
+.addField('Guild id : ', `${guild.id}`)
+.addField('Guild UserCount : ',gmemb = guild.members.size)
+.addField('Guild Owner : ', guild.owner)
+.setThumbnail(gimg)
+.setTimestamp()
+ channel.send(e);
+
+});
+
+
+client.on("guildDelete", guild => {
+var gimg;
+var gname;
+var gmemb;
+var groles;
+
+gname = guild.name;
+gimg = guild.iconURL;
+gmemb = guild.members.size;
+groles = guild.roles.map(r=> {return r.name});
+  let channel = client.channels.get('475883237001134110')
+const e = new Discord.RichEmbed()
+.setColor('#36393e')
+.addField('Bot Left Guild : ', `${guild.name}`)
+.addField('Guild id : ', `${guild.id}`)
+.addField('Guild UserCount : ',gmemb = guild.members.size)
+.addField('Guild Owner : ', guild.owner)
+.setThumbnail(gimg)
+.setTimestamp()
+ channel.send(e);
+
+});
+ 
+
+client.on('voiceStateUpdate', (oldM, newM) => {
+  let m1 = oldM.serverMute;
+  let m2 = newM.serverMute;
+  let d1 = oldM.serverDeaf;
+  let d2 = newM.serverDeaf;
+
+  let ch = oldM.guild.channels.find('name', 'log')
+  if(!ch) return;
+
+    oldM.guild.fetchAuditLogs()
+    .then(logs => {
+
+      let user = logs.entries.first().executor.username
+
+    if(m1 === false && m2 === true) {
        let embed = new Discord.RichEmbed()
-        let args = message.content.split(' ').slice(1).join(' ');
-    if(message.content.split(' ')[0] == prefix + '2bc') {
-         message.delete(5000)
-        if(!message.channel.guild) return;
-        if (!args[1]) {
-    message.channel.send(`${prefix}` + "**ebc <message>**");
-    return;
+       .setAuthor(`${newM.user.tag}`, newM.user.avatarURL)
+       .setDescription(` ${user} اخــذ مــيــوت صــوتــي بــواســطــه  ${newM} `)
+       .setColor('#36393e')
+        .setTimestamp()
+       ch.send(embed)
     }
-            message.guild.members.forEach(m => {
-       if(!message.member.hasPermission('ADMINISTRATOR')) return;
-                var bc = new Discord.RichEmbed()
-                .addField('» Server :', `${message.guild.name}`)
-                .addField('» Sent By : : ', `${message.author.username}#${message.author.discriminator}`)
-                .addField('» Message :  : ', args)
-                .setColor('#ff0000')
-                // m.send(`[${m}]`);
-                m.send(`${m}`,{embed: bc});
-            });
+    if(m1 === true && m2 === false) {
+       let embed = new Discord.RichEmbed()
+       .setAuthor(`${newM.user.tag}`, newM.user.avatarURL)
+       .setDescription(` ${user} فــك عــنــه  مــيــوت صــوتــي بــواســطــه  ${newM} `)
+       .setColor('#36393e')
+       .setTimestamp()
+       ch.send(embed)
+    }
+    if(d1 === false && d2 === true) {
+       let embed = new Discord.RichEmbed()
+       .setAuthor(`${newM.user.tag}`, newM.user.avatarURL)
+       .setDescription(` ${user}  اخــذ ديــفــن صــوتــي بــواســطــه   ${newM}`)
+       .setColor('#36393e')
+       .setTimestamp()
+
+       ch.send(embed)
+    }
+    if(d1 === true && d2 === false) {
+       let embed = new Discord.RichEmbed()
+       .setAuthor(`${newM.user.tag}`, newM.user.avatarURL)
+       .setDescription(` ${user}  فــك عــنــه ديــفــن صــوتــي بــواســطــه   ${newM}`)
+       .setColor('#36393e')
+       .setTimestamp()
+
+       ch.send(embed)
+    }
+  })
+})
+
+
+  client.on('messageUpdate', (message, newMessage) => {
+    if (message.content === newMessage.content) return;
+    if (!message || !message.id || !message.content || !message.guild || message.author.bot) return;
+    const channel = message.guild.channels.find('name', 'log');
+    if (!channel) return;
+ 
+    let embed = new Discord.RichEmbed()
+       .setAuthor(`${message.author.tag}`, message.author.avatarURL)
+.setTitle(' تــعــديــل رســالــه  :  ')
+.addField('قــبــل الــتــعــديــل',`${message.cleanContent}`)
+.addField(' بــعــد  الــتــعــديــل ',`${newMessage.cleanContent}`)
+.addField(' عــدلــت فــي  ',`<#${message.channel.id}>`)
+.addField(' يــواســطــه  ', `<@${message.author.id}> `)
+.setColor('#36393e')
+       .setTimestamp();
+     channel.send({embed:embed});
+ 
+ 
+});
+ 
+client.on('guildMemberAdd', member => {
+    if (!member || !member.id || !member.guild) return;
+    const guild = member.guild;
+   
+    const channel = member.guild.channels.find('name', 'log');
+    if (!channel) return;
+    let memberavatar = member.user.avatarURL
+    const fromNow = moment(member.user.createdTimestamp).fromNow();
+    const isNew = (new Date() - member.user.createdTimestamp) < 900000 ? '🆕' : '';
+   
+    let embed = new Discord.RichEmbed()
+       .setAuthor(`${member.user.tag}`, member.user.avatarURL)
+       .setColor('#36393e')
+       .setDescription(` <@${member.user.id}>  انــضــم لــلــســيــرفــر `)
+       .setTimestamp();
+     channel.send({embed:embed});
+});
+ 
+client.on('guildMemberRemove', member => {
+    if (!member || !member.id || !member.guild) return;
+    const guild = member.guild;
+   
+    const channel = member.guild.channels.find('name', 'log');
+    if (!channel) return;
+    let memberavatar = member.user.avatarURL
+    const fromNow = moment(member.joinedTimestamp).fromNow();
+   
+    let embed = new Discord.RichEmbed()
+       .setAuthor(`${member.user.tag}`, member.user.avatarURL)
+       .setColor('#36393e')
+       .setDescription(` <@${member.user.id}>  خــرج مــن الــســيــرفــر `)
+       .setTimestamp();
+     channel.send({embed:embed});
+});
+ 
+client.on('messageDelete', message => {
+    if (!message || !message.id || !message.content || !message.guild || message.author.bot) return;
+    const channel = message.guild.channels.find('name', 'log');
+    if (!channel) return;
+   
+    let embed = new Discord.RichEmbed()
+       .setAuthor(`${message.author.tag}`, message.author.avatarURL)
+ .setTitle('  مــســح رســالــه  :   ')
+ .addField('  الــرســالــه  ',`${message.cleanContent}`)
+ .addField('  مــســحــت فــي  ',`<#${message.channel.id}>`)
+ .addField(' يــواســطــه  ', `<@${message.author.id}> `)
+       .setColor('#36393e')
+       .setTimestamp();
+     channel.send({embed:embed});
+ 
+});
+
+     
+      client.on("roleDelete", role => {
+  client.setTimeout(() => {
+    role.guild.fetchAuditLogs({
+        limit: 1,
+        type: 30
+      })
+      .then(audit => {
+        let exec = audit.entries.map(a => a.executor.username)
+        try {
+
+          let log = role.guild.channels.find('name', 'log');
+          if (!log) return;
+          let embed = new Discord.RichEmbed()
+            .setColor('#36393e')          
+            .setTitle('-  مــســح رتــبــه ')
+            .addField(' اســم الــرتــبــه  ', role.name, true)
+            .addField(' هــويــة الــرتــبــه ', role.id, true)
+            .addField(' لــون الــرتــبــه ', role.hexColor, true)
+            .addField(' بــواســطــه ', exec, true)
+            .setColor('#36393e') 
+            .setTimestamp()
+            
+          log.send(embed).catch(e => {
+            console.log(e);
+          });
+        } catch (e) {
+          console.log(e);
         }
-        } else {
-            return;
+      })
+  }, 1000)
+})
+
+
+client.on('roleCreate', role => {
+  client.setTimeout(() => {
+    role.guild.fetchAuditLogs({
+        limit: 1,
+        type: 30
+      })
+      .then(audit => {
+        let exec = audit.entries.map(a => a.executor.username)
+        try {
+
+          let log = role.guild.channels.find('name', 'log');
+          if (!log) return;
+          let embed = new Discord.RichEmbed()
+            .setTitle('+  انــشــاء رتــبــه ')
+            .addField(' اســم الــرتــبــه  ', role.name, true)
+            .addField(' هــويــة الــرتــبــه ', role.id, true)
+            .addField(' لــون الــرتــبــه ', role.hexColor, true)
+            .addField(' بــواســطــه ', exec, true)
+            .setColor('#36393e') 
+            .setTimestamp()
+            
+          log.send(embed).catch(e => {
+            console.log(e);
+          });
+        } catch (e) {
+          console.log(e);
         }
-    });
+      })
+  }, 1000)
+})
+
+
+
+
+  client.on("guildBanAdd", (guild, member) => {
+  client.setTimeout(() => {
+    guild.fetchAuditLogs({
+        limit: 1,
+        type: 22
+      })
+      .then(audit => {
+        let exec = audit.entries.map(a => a.executor.username);
+        try {
+          let log = guild.channels.find('name', 'log');
+          if (!log) return;
+          client.fetchUser(member.id).then(myUser => {
+          let embed = new Discord.RichEmbed()
+        .setAuthor("حــظــر عــضــو :  ")
+        .setColor('#36393e') 
+        .setThumbnail(myUser.avatarURL)
+        .addField(' الــعــضــو  ',`**${myUser.username}**`,true)
+        .addField('  بــواســطــه ',`**${exec}**`,true)
+        .setFooter(myUser.username,myUser.avatarURL)
+            .setTimestamp();
+          log.send(embed).catch(e => {
+            console.log(e);
+          });
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+  }, 1000);
+});
+
+
+
+    client.on("guildBanRemove", (guild, member) => {
+  client.setTimeout(() => {
+    guild.fetchAuditLogs({
+        limit: 1,
+        type: 22
+      })
+      .then(audit => {
+        let exec = audit.entries.map(a => a.executor.username);
+        try {
+          let log = guild.channels.find('name', 'log');
+          if (!log) return;
+          client.fetchUser(member.id).then(myUser => {
+          let embed = new Discord.RichEmbed()
+        .setAuthor("  فــك حــظــر عــن عــضــو ")
+        .setColor('#36393e') 
+		 .setThumbnail(myUser.avatarURL)
+        .addField(' الــعــضــو  ',`**${myUser.username}**`,true)
+        .addField('  بــواســطــه ',`**${exec}**`,true)
+        .setFooter(myUser.username,myUser.avatarURL)
+            .setTimestamp();
+          log.send(embed).catch(e => {
+            console.log(e);
+          });
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+  }, 1000);
+});
+
 
 
 client.login(process.env.BOT_TOKEN);
