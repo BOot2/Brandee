@@ -953,39 +953,24 @@ message.channel.send(embed)
 });
 
 
-client.on('message', message => { 
-if(!message.channel.guild) return;
-if(message.content.startsWith(prefix + 'move')) {
-        if(!message.member.hasPermission("MOVE_MEMBERS")) return message.channel.send("⚠️|`انت لا تمتلك الخاصية المطلوبة`");
- if (message.member.hasPermission("MOVE_MEMBERS")) {
- if (message.mentions.users.size === 0) {
- return message.channel.send("``للأستخدام اكتب  : " +prefix+ "move [USER]``")
-}
-if (message.member.voiceChannel != null) {
- if (message.mentions.members.first().voiceChannel != null) {
- var authorchannel = message.member.voiceChannelID;
- var usermentioned = message.mentions.members.first().id;
-var embed = new Discord.RichEmbed()
- .setTitle("Succes!")
- .setColor("#000000")
- .setDescription(`لقد قمت بسحب <@{usermentioned}> الى الروم الصوتي الخاص بك✅ `)
-var embed = new Discord.RichEmbed()
-.setTitle(`You are Moved in {message.guild.name}`)
- .setColor("RANDOM")
-.setDescription(`<@{message.author.id}> **Moved You To His Channel!\nServer -->** {message.guild.name}`)
- message.guild.members.get(usermentioned).setVoiceChannel(authorchannel).then(m => message.channel.send(embed))
-message.guild.members.get(usermentioned).send(embed)
-} else {
-message.channel.send("`لا تستطيع سحب `"+ message.mentions.members.first() +" `يجب ان يكون العضو في روم صوتي`")
-}
-} else {
- message.channel.send("**``يجب ان تكون في روم صوتي لكي تسحب العضو``**")
-}
-} else {
-message.react("❌")
- }
-}
-});
+      client.on('message', msg => { 
+        if (msg.content.startsWith(`!warn`)) {
+          if(!msg.member.hasPermission("MANAGE_MESSAGES")) return;
+           let args = msg.content.split(" ").slice(1);
+          if (!msg.mentions.members.first()) return msg.reply('منشن الشخص المحدد')
+          if (!args[1]) return msg.reply('اكتب السبب')
+          //غير اسم الروم او سوي روم بذا الاسم 
+          if (msg.guild.channels.find('name', 'log')) {
+            //اذا غيرت فوق غير هنا كمان 
+            msg.guild.channels.find('name', 'log').send(`
+          تم اعطائك تنبيه : ${msg.mentions.members.first()}
+          لأنك قمت بما يلي
+          ${args.join(" ").split(msg.mentions.members.first()).slice(' ')}
+          `)
+          }
+        }
+})
+
 
 
 
