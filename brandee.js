@@ -973,33 +973,65 @@ message.channel.send(embed)
 
 
 
-client.on("message", message => {
- 
-            var args = message.content.substring(prefix.length).split(" ");
-            if (message.content.startsWith(prefix + "$clear")) {
-   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('  ⚠  ** **');
-        var msg;
-        msg = parseInt();
-      
-      message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-      message.channel.sendMessage("", {embed: {
-        title: "Done | تــم",
-        color: 0x06DF00,
-        description: "تم مسح الرسائل بنجاح",
-        footer: {
-          text: "Frix v0.1"
+client.on("message",function(message) {
+    if(message.content.startsWith("#stats")) {
+           let uptime = client.uptime;
+
+    let days = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    let notCompleted = true;
+
+    while (notCompleted) {
+
+        if (uptime >= 8.64e+7) {
+
+            days++;
+            uptime -= 8.64e+7;
+
+        } else if (uptime >= 3.6e+6) {
+
+            hours++;
+            uptime -= 3.6e+6;
+
+        } else if (uptime >= 60000) {
+
+            minutes++;
+            uptime -= 60000;
+
+        } else if (uptime >= 1000) {
+            seconds++;
+            uptime -= 1000;
+
         }
-      }}).then(msg => {msg.delete(3000)});
-                          }
 
-     
+        if (uptime < 1000)  notCompleted = false;
 
-        
-    
-
-         
-     });
-
+    }
+let ms = 1000;
+let v1 = new Discord.RichEmbed()
+  v1.setTimestamp(new Date())
+  v1.setColor("RED")
+  v1.setDescription('***__ Collecting Data __***')
+  v1.setFooter("& | Frix Commuinty |") 
+let heroo = new Discord.RichEmbed()
+.setColor('RANDOM')
+.setTimestamp(new Date())
+.setThumbnail(client.user.avatarURL)
+.setAuthor(client.user.username,client.user.avatarURL)
+.addField("MyPrefix :",`**[ ${prefix} ]**`,true)
+.addField("Guilds :","**[ "+client.guilds.size+" ]**",true)
+.addField("Channels :","**[ "+client.channels.size+" ]**",true)
+.addField("Users :","**[ "+client.users.size+" ]**",true)
+.addField("MyName : ","**[ "+client.user.username+" ]**",true)
+.addField("MyID :","**[ "+client.user.id+" ]**",true)
+.addField("RamUsage :",`**[ ${(process.memoryUsage().rss / 1048576).toFixed()}MB ]**`,true)
+.addField("UpTime :",`**[** **Days:** \`${days}\` **Hours:** \`${hours}\` **Minutes:** \`${minutes}\` **Seconds:** \`${seconds}\` **]**`,true)
+.setFooter("Frix v0.1 |")
+  message.channel.send({embed:v1}).then(m => m.edit({embed:heroo})),ms; 
+    }
+});
 
 
 client.login(process.env.BOT_TOKEN);
