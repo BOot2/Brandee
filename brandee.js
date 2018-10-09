@@ -779,7 +779,88 @@ client.on("message", message => {
  
 
 
+client.on('message', message => { 
+   if(message.content.startsWith(prefix + "invites")) {
+    message.guild.fetchInvites().then(invs => {
+      var user = message.mentions.users.first() || message.author
+      var personalInvites = invs.filter(i => i.inviter.id === user.id);
+      var inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
+              var mmmmEmbed = new Discord.RichEmbed()
+                         .setAuthor(client.user.username)
+                         .setThumbnail(message.author.avatarURL)
+ .addField(` لقد قمت بدعوة :`, ` ${inviteCount} `)
+           .setFooter(`- Requested By: ${message.author.tag}`);
+           message.channel.send(mmmmEmbed)
+});
+  }
+});
 
+
+var servers = {};
+client.on('message' , async (message) => {
+       if(message.content.startsWith(prefix + "play")) {
+              let args = message.content.split(" ").slice(1);
+    //play
+    if (!args[0]) {
+         message.channel.send("Please specify a link");
+         return
+    }
+    if(!message.member.voiceChannel) {
+        message.channel.sned("I think it may work better if you are in a voice channel!");
+    }
+    if(!servers[message.guild.id]) servers[message.guild.id] = {
+        queue: []
+    }
+    var server = servers[message.guild.id];
+    server.queue.push(args[0]);
+    message.channel.send("Your song of choice is on the queue.` ")
+    if(!message.member.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+        play(connection, message);
+    })
+}
+
+});
+
+
+client.on('message', message => {
+    if (message.content === '>roles') {
+        var roles = message.guild.roles.map(roles => `${roles.name}, `).join(' ')
+        const embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .addField('الرتب:',`**[${roles}]**`)
+        message.channel.sendEmbed(embed);
+    }
+});
+
+
+
+client.on('message',message =>{
+    var prefix = ">";
+    if(message.content.startsWith(prefix + 'top')) {
+  message.guild.fetchInvites().then(i =>{
+  var invites = [];
+   
+  i.forEach(inv =>{
+    var [invs,i]=[{},null];
+     
+    if(inv.maxUses){
+        invs[inv.code] =+ inv.uses+"/"+inv.maxUses;
+    }else{
+        invs[inv.code] =+ inv.uses;
+    }
+        invites.push(`invite: ${inv.url} inviter: ${inv.inviter} \`${invs[inv.code]}\`;`);
+   
+  });
+  var embed = new Discord.RichEmbed()
+  .setColor("#000000")
+  .setDescription(`${invites.join(`\n`)+'\n\n**By:** '+message.author}`)
+  .setThumbnail("https://cdn.discordapp.com/attachments/473888377863667714/479604123327660042/junglemc.ico")
+           message.channel.send({ embed: embed });
+   
+  });
+   
+    }
+  });
 
 
 client.login(process.env.BOT_TOKEN);
