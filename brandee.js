@@ -735,6 +735,52 @@ client.on('message', message => {
 });
 
 
+ 
+ 	client.on('message', message => { 
+	if(message.content.startsWith(prefix + 'move all')) {
+	 if (!message.member.hasPermission("MOVE_MEMBERS")) return message.channel.send('**لايوجد لديك صلاحية سحب الأعضاء**');
+	   if(!message.guild.member(client.user).hasPermission("MOVE_MEMBERS")) return message.reply("**لايوجد لدي صلاحية السحب**");
+	if (message.member.voiceChannel == null) return message.channel.send(`**يجب عليك دخول روم صوتي**`)
+	 var author = message.member.voiceChannelID;
+	 var m = message.guild.members.filter(m=>m.voiceChannel)
+	 message.guild.members.filter(m=>m.voiceChannel).forEach(m => {
+	 m.setVoiceChannel(author)
+	 })
+	 message.channel.send(`**تم سحب جميع الأعضاء **`)
+
+
+	 }
+	   });
+	   
+
+
+client.on("message", message => {
+        let args = message.content.split(" ").slice(1);
+      if (message.content.startsWith(prefix + 'report')) {
+            let user = message.mentions.users.first();
+            let reason = args.slice(1).join(' ');
+            let modlog = client.channels.find('name', 'reports');
+            if (!reason) return message.reply('**ضع سبباً مقنعاً**');
+              if (message.mentions.users.size < 1) return message.reply('**يجب عليك منشن للعضو المراد الابلاغ عليه**').catch(console.error);
+       
+        if (!modlog) return message.reply('**لا يوجد روم بأسم report**');
+        const embed = new Discord.RichEmbed()
+          .setColor(0x00AE86)
+          .setTimestamp()
+          .addField('نوع الرسالة:', 'Report')
+          .addField('المراد الابلاغ عليه:', `${user.username}#${user.discriminator} (${user.id}`)
+          .addField('صاحب الابلاغ:', `${message.author.username}#${message.author.discriminator}`)
+          .addField('السبب', reason);
+          message.delete()
+          return client.channels.get(modlog.id).sendEmbed(embed).catch(console.error);
+          console.log('[report] Send By: ' + message.author.username)
+      }
+      });
+ 
+
+
+
+
 
 client.login(process.env.BOT_TOKEN);
 
