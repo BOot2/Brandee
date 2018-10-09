@@ -974,7 +974,7 @@ message.channel.send(embed)
 
 
 client.on("message",function(message) {
-    if(message.content.startsWith("#stats")) {
+    if(message.content.startsWith("!info bot all")) {
            let uptime = client.uptime;
 
     let days = 0;
@@ -1028,7 +1028,7 @@ let heroo = new Discord.RichEmbed()
 .addField("MyID :","**[ "+client.user.id+" ]**",true)
 .addField("RamUsage :",`**[ ${(process.memoryUsage().rss / 1048576).toFixed()}MB ]**`,true)
 .addField("UpTime :",`**[** **Days:** \`${days}\` **Hours:** \`${hours}\` **Minutes:** \`${minutes}\` **Seconds:** \`${seconds}\` **]**`,true)
-.setFooter("Frix v0.1 |")
+.setFooter(" - ToRnEdO")
   message.channel.send({embed:v1}).then(m => m.edit({embed:heroo})),ms; 
     }
 });
