@@ -1219,40 +1219,17 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 
 
 
-client.on('message', async (message) => {
-    if(message.content.startsWith('!namebot')) {
-         let args = message.content.split(' ').slice(1);
-  try {
-    if (args.length > 0) {
-      await message.guild.me.setNickname(args.join(' '));
-
-      message.channel.send({
-        embed: {
-          color: message.colors.GREEN,
-          description: `${message.user.username}'s nick is now set to **${args.join(' ')}** on this guild.`
-        }
-      }).catch(e => {
-        message.log.error(e);
-      });
+client.on("message", message => {
+    if(message.content.startsWith(prefix + 'v2min')) {
+     let args = message.content.split(" ").slice(1);
+       var nam = args.join(' ');
+    
+      if(!message.member.hasPermission('ADMINISTRATOR')) return    message.channel.send('`ADMINISTRATOR` للأسف هذه الخاصية تحتاج الى ').then(msg => msg.delete(6000))
+      if (!nam) return message.channel.send(`<@${message.author.id}> يجب عليك ادخال اسم`).then(msg => msg.delete(10000))
+      message.guild.createChannel(nam, 'voice').then(c => setTimeout(() => c.delete(), 120000)) // كل 60 تساوي دقيقة عدل عليها الوقت لي تبيه 
+      message.channel.send(`☑ TemporarySound : \`${nam}\``).then(c => setTimeout(() => c.edit(`<@${message.author.id}> ⏱  انتهى وقت الروم الصوتي`), 120000))  // 120000 دقيقتان
     }
-    else {
-      await message.guild.me.setNickname('');
-
-      message.channel.send({
-        embed: {
-          color: message.colors.GREEN,
-          description: `${message.user.username}'s nick has been reset on this guild.`
-        }
-      }).catch(e => {
-        message.log.error(e);
-      });
-    }
-  }
-  catch (e) {
-    message.log.error(e);
-  }
-}
-});
+    });
 
 
 
