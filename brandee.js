@@ -1220,6 +1220,7 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 
 client.on('message', message => {   
 if (message.author.boss) return;
+var prefix = "!";
 if (!message.content.startsWith(prefix)) return;
 let command = message.content.split(" ")[0];
 command = command.slice(prefix.length);
