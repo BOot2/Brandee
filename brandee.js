@@ -1219,30 +1219,26 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 
 
 
- client.on('message', msg => {
-    if(msg.author.bot) return;
-    
-    if(msg.content === '!sadas') {
-      client.guilds.forEach(g => {
-        
-        let l = g.id
-        g.channels.get(g.channels.first().id).createInvite({
-          maxUses: 5,
-          maxAge: 86400
-        }).then(i => msg.channel.send(`
-        **
-        Invite Link : <https://discord.gg/${i.code}>
-        Server : ${g.name} | Id : ${g.id} 
-        Owner ID : ${g.owner.id}
-        **
-        `))
-  
-  
-      })
+client.on('message', message => {
+ if (message.content.includes('discord.gg')){//شيل المسافه
+                     if(!message.channel.guild) return message.reply ('')
+                 if (!message.member.hasPermissions(['MANAGE_MESSAGES'])){
+    message.delete() 
+     var member = message.member
+   
+          member.ban().then((member) => {
+              message.channel.send("", {embed: {
+              author: {
+              },
+              title: 'بسبب النشر ' + member.displayName + ' تم طرد',
+              color: 490101,
+              }
+            });
+        }
+      ) 
     }
-    
-  })
-
+}
+});
 
 
 client.login(process.env.BOT_TOKEN);
