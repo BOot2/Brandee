@@ -1219,7 +1219,6 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 
 
 client.on('message' , message => { 
-const prefix = '+'
     if (message.author.bot) return;
      if (message.content === prefix + "se") {
        if (message.author.id !== '488334414124810240') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
