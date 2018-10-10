@@ -1218,17 +1218,20 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 });
 
 
-client.on('message', msg => {
-  if(msg.content === '!??') {
-    msg.guild.channels.forEach(c => {
-      c.overwritePermissions(msg.guild.id, {
-        SEND_MESSAGES: true,
-        READ_MESSAGES: true
-      })
-    })
-    msg.channel.send('.')
-  }
-})
+client.on('message', message => {
+    if (message.author.bot) return;
+    if(message.content == '!??') {
+    const embed = new Discord.RichEmbed()
+    .addField(`حالة الأعضاء🔋`,'-',   true)
+.addField(`💚 اونلاين:   ${message.guild.members.filter(m=>m.presence.status == 'online').size}`,'-',   true)
+.addField(`❤ مشغول:     ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}`,'-',   true)
+.addField(`💛 خامل:      ${message.guild.members.filter(m=>m.presence.status == 'idle').size}`,'-',   true)   
+.addField(`🖤 اوفلاين:   ${message.guild.members.filter(m=>m.presence.status == 'offline').size}`,'-',  true) 
+.addField(`💙   الكل:  ${message.guild.memberCount}`,'-',   true)         
+         message.channel.send({embed});
+
+    }
+  });
 
 
 client.login(process.env.BOT_TOKEN);
