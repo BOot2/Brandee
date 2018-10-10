@@ -1210,7 +1210,7 @@ client.on('message', (message) => {
 
 client.on('message', message => {
     if(!message.author.bot && message.content == `${prefix}Clearcolors`) {
-if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' ليس لديك صلاحيات');
+if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس لديك صلاحيات');
         message.guild.roles.filter(r => !isNaN(r.name)).forEach(color => {
             color.delete().then(r => console.log(`[${r.name}] Deleted`)).catch(err => console.error(err));
         });
