@@ -1218,35 +1218,20 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 });
 
 
-client.on('message', message => {
-  if (message.content.startsWith ("!??")) {
-   if(!message.channel.guild) return message.reply('** This command only for servers **');
-       var mentionned = message.mentions.users.first();
-      var os;
-    if(mentionned){
-        var os = mentionned.id;
-    } else {
-        var os = message.author.id;
-        
+client.on('message' , message => { 
+const prefix = '+'
+    if (message.author.bot) return;
+     if (message.content === prefix + "se") {
+       if (message.author.id !== '488334414124810240') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
+
+if(!message.channel.guild) return;
+  if(message.content < 1023) return
+  const Embed11 = new Discord.RichEmbed()
+.setAuthor(client.user.username,client.user.avatarURL)
+.setThumbnail(client.user.avatarURL)
+.setDescription(`***مجموع السيرفرات ${client.guilds.size} \n \n${client.guilds.map(guilds => `- ${guilds.name}`).join('\n')}***`)
+         message.channel.sendEmbed(Embed11)
     }
-        var oss;
-    if(mentionned){
-        var oss = mentionned;
-    } else {
-        var oss = message.author;
-        
-    }
-message.guild.fetchInvites()
-.then(invites =>{
-if(!invites.find(invite => invite.inviter.id === `${os}`)) return message.channel.send(`**${oss.username}, Does't Have Invites :x:**`);
-message.channel.send(`**__${invites.find(invite => invite.inviter.id === `${os}`).uses}__ Member Joined By ${oss.username} !** :chart_with_upwards_trend:  `)
-
-})
-
-
-
-}
-
 });
 
 
