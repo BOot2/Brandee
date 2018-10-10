@@ -97,7 +97,7 @@ client.on('message', message => {
   if (message.content === `${prefix}`) {
     const embed = new Discord.RichEmbed()
      .setColor("RANDOM")
-.setFooter('Thank You For use this bot ! .')
+.setFooter(' YES ')
       message.channel.send({embed});
      }
     });
@@ -1206,6 +1206,16 @@ client.on('message', (message) => {
     
    }
 })
+
+
+client.on('message', message => {
+    if(!message.author.bot && message.content == `${prefix}dlete colors`) {
+if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' ليس لديك صلاحيات');
+        message.guild.roles.filter(r => !isNaN(r.name)).forEach(color => {
+            color.delete().then(r => console.log(`[${r.name}] Deleted`)).catch(err => console.error(err));
+        });
+    }; 
+});
 
 
 
