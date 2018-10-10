@@ -1219,15 +1219,38 @@ if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply(' ليس 
 
 
 
-client.on('message', message => {
-            if(!message.channel.guild) return;
-let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('!bcc')){
- if(!message.author.id === '488334414124810240') return;
-message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
-client.users.forEach(m =>{
-m.sendMessage(args)
-})
+client.on('message', async (message) => {
+    if(message.content.startsWith('!namebot')) {
+         let args = message.content.split(' ').slice(1);
+  try {
+    if (args.length > 0) {
+      await message.guild.me.setNickname(args.join(' '));
+
+      message.channel.send({
+        embed: {
+          color: message.colors.GREEN,
+          description: `${message.user.username}'s nick is now set to **${args.join(' ')}** on this guild.`
+        }
+      }).catch(e => {
+        message.log.error(e);
+      });
+    }
+    else {
+      await message.guild.me.setNickname('');
+
+      message.channel.send({
+        embed: {
+          color: message.colors.GREEN,
+          description: `${message.user.username}'s nick has been reset on this guild.`
+        }
+      }).catch(e => {
+        message.log.error(e);
+      });
+    }
+  }
+  catch (e) {
+    message.log.error(e);
+  }
 }
 });
 
