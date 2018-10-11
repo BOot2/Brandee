@@ -1335,14 +1335,14 @@ client.on('ready', () => {
 const fs = require('fs'); // npm i fs
 const ms = require('ms'); // npm i ms
 const cool = [];
-hero.on('message',async message => {
+client.on('message',async message => {
   if(message.author.bot) return;
   if(message.channel.type === 'dm') return;
 
   const args = message.content.split(' ');
   const credits = {};
-  const mention = message.mentions.users.first() || hero.users.get(args[1]) || message.author;
-  const mentionn = message.mentions.users.first() || hero.users.get(args[1]);
+  const mention = message.mentions.users.first() || client.users.get(args[1]) || message.author;
+  const mentionn = message.mentions.users.first() || client.users.get(args[1]);
   const author = message.author.id;
   const balance = args[2];
   const daily = Math.floor(Math.random() * 350) + 10;
