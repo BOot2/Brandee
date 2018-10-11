@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const moment = require('moment');
+const args = message.content.split(' ');
+const fs = require('fs'); // npm i fs
+const ms = require('ms'); // npm i ms
 
 const prefix = '!'
 
@@ -1332,101 +1335,37 @@ client.on('ready', () => {
 
 
 
-const fs = require('fs'); // npm i fs
-const ms = require('ms'); // npm i ms
-const cool = [];
-client.on('message',async message => {
-  if(message.author.bot) return;
-  if(message.channel.type === 'dm') return;
+client.on('message', message => {
+if(!message.channel.guild) return;
+if(message.content.startsWith(prefix + 'اسحب')) {
+ if (message.member.hasPermission("MOVE_MEMBERS")) {
+ if (message.mentions.users.size === 0) {
+ return message.channel.send("``لاستخدام الأمر اكتب هذه الأمر : " +prefix+ "move [USER]``")
+}
+if (message.member.voiceChannel != null) {
+ if (message.mentions.members.first().voiceChannel != null) {
+ var authorchannel = message.member.voiceChannelID;
+ var usermentioned = message.mentions.members.first().id;
+var embed = new Discord.RichEmbed()
+ .setTitle("Succes!")
+ .setColor("#000000")
+ .setDescription(`لقد قمت بسحب <@${usermentioned}> الى الروم الصوتي الخاص بك:white_check_mark: `)
+var embed = new Discord.RichEmbed()
+.setTitle(`You are Moved in ${message.guild.name}`)
+ .setColor("#000000")
+.setDescription(`<@${message.author.id}> moved you to his channel!\nServer => ${message.guild.name}`)
+ message.guild.members.get(usermentioned).setVoiceChannel(authorchannel).then(m => message.channel.send(embed))
+message.guild.members.get(usermentioned).send(embed)
+} else {
+message.channel.send("``لا تستطيع سحب "+ message.mentions.members.first() +" `يجب ان يكون هذه العضو في روم صوتي`")
+}
+} else {
+ message.channel.send("``يجب ان تكون في روم صوتي لكي تقوم بسحب العضو أليك``")
+}
+} else {
+message.react("❌")
+ }}});		
 
-  const args = message.content.split(' ');
-  const credits = {};
-  const mention = message.mentions.users.first() || client.users.get(args[1]) || message.author;
-  const mentionn = message.mentions.users.first() || client.users.get(args[1]);
-  const author = message.author.id;
-  const balance = args[2];
-  const daily = Math.floor(Math.random() * 350) + 10;
-
-  if(!credits[author]) credits[author] = {credits: 50};
-  if(!credits[mention.id]) credits[mention.id] = {credits: 50};
-  
-
-  
-  if(message.content.startsWith(prefix + "credit")) {
-  if(args[0] !== `${prefix}credit` && args[0] !== `${prefix}credits`) return;
-
-  if(args[2]) {
-    if(isNaN(args[2])) return message.channel.send('**:heavy_multiplication_x:| هذه الخانة يجب ان تتكون من ارقام وليس احرف.**');
-    if(mention.bot) return message.channel.send(`**:heavy_multiplication_x:| ${message.content.split(' ')[1]} لم يتم العثور على**`);
-    if(mention.id === message.author.id) return message.channel.send('**:heavy_multiplication_x:| لا يمكنك تحويل كردت لنفسك**');
-    if(credits[author].credits < balance) return message.channel.send('**:heavy_multiplication_x:| أنت لا تملك هذا القدر من الكردت**');
-    var one = Math.floor(Math.random() * 9) + 1;
-    var two = Math.floor(Math.random() * 9) + 1;
-    var three = Math.floor(Math.random() * 9) + 1;
-    var four = Math.floor(Math.random() * 9) + 1;
-
-    var number = `${one}${two}${three}${four}`;
-    
-    message.channel.send(`**:heavy_dollar_sign:| \`${number}\`, أكتب الرقم للأستمرار**`).then(m => {
-      message.channel.awaitMessages(m => m.author.id === message.author.id, {max: 1, time: 10000}).then(c => {
-        if(c.first().content === number) {
-          m.delete();
-          message.channel.send(`**:atm:| ${message.author.username}, قام بتحويل \`${balance}\` لـ ${mention}**`);
-          credits[author].credits += (-balance);
-          credits[mention.id].credits += (+balance);
-          
-        } else if(c.first().content !== number) {
-          m.delete();
-          message.channel.send(`** :money_with_wings: | تم الغاء الإرسال**`);
-        }
-      });
-    });
-  }
-  if(!args[2]) {
-    if(mention.bot) return message.channel.send(`**:heavy_multiplication_x:| ${message.content.split(' ')[1]} لم يتم العثور على**`);
-    message.channel.send(`**:credit_card: | ${mention.username}, معك من الكردت **${credits[mention.id].credits}`);
-  } 
-  
-  }
-  if(message.content.startsWith(prefix + "daily")) {
-    if(cool.includes(message.author.id)) return message.channel.send(`**:heavy_dollar_sign: | \`${moment().startOf('day').locale('ar-eg').fromNow().replace('منذ', 'بعد')}\` , يجب عليك انتظار  يوم لأخذ المبلغ مرة اخرى**`);
-    if(mentionn) {
-      var one = Math.floor(Math.random() * 9) + 1;
-      var two = Math.floor(Math.random() * 9) + 1;
-      var three = Math.floor(Math.random() * 9) + 1;
-      var four = Math.floor(Math.random() * 9) + 1;
-  
-      var number = `${one}${two}${three}${four}`;
-
-      message.channel.send(`**:atm: | \`${number}\`, قم بكتابة الرقم للأستمرار**`).then(async m => {
-        message.channel.awaitMessages(msg => msg.author.id === message.author.id, {max: 1, time: 20000, errors: ['time']}).then(collected => {
-          if(collected.first().content === number) {
-            m.delete();
-            collected.first().delete();
-            credits[mentionn.id].credits += (+daily);
-            
-
-          message.channel.send(`**:atm: | \`${daily}\`, تم تسليم المبلغ**`);  
-          }
-          if(collected.first().content !== number) {
-            return m.delete();
-          }
-        });
-      });
-    } else if(!mentionn) {
-      credits[author].credits += (+daily);
-      
-
-      message.channel.send(`**:atm: | \`${daily}\`, تم اعطائك المبلغ**`);
-    }
-    cool.unshift(message.author.id);
-
-    setTimeout(() => {
-      cool.shift(message.author.id);
-      message.author.send("**:atm: | \`Daily\`, يمكنك الحصول على الكردت المجانية الان**").catch();
-    }, ms("1d"));
-  }
-});
 
 
 
