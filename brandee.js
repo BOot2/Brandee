@@ -1241,45 +1241,18 @@ client.on('message', message => {
 });
 
 
-client.on('message',async message => {
-    if(message.content.startsWith(prefix + "bbc")) {
-      let filter = m => m.author.id === message.author.id;
-      let thisMessage;
-      let thisFalse;
-      message.channel.send('🇧🇨| **ارسل الرسالة الان**').then(msg => {
+client.on('message', message => {
+    let args = message.content.split(" ").slice(1);
+if (message.content.startsWith(prefix + 'cclear')) {
+                  if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.sendMessage('🔘 Hey! || You Don\'t Have Perms . ')
 
-      let awaitM = message.channel.awaitMessages(filter, {
-        max: 1,
-        time: 20000,
-        errors: ['time']
-      })
-      .then(collected => {
-        collected.first().delete();
-        thisMessage = collected.first().content;
-        msg.edit('🇧🇨| **هل انت متأكد؟**');
-        let awaitY = message.channel.awaitMessages(response => response.content === 'نعم' || 'لا' && filter,{
-          max: 1,
-          time: 20000,
-          errors: ['time']
-        })
-        .then(collected => {
-          if(collected.first().content === 'no') {
-            msg.delete();
-            message.delete();
-            thisFalse = false;
-          }
-          if(collected.first().content === 'yes') {
-            if(thisFalse === false) return;
-          message.guild.members.forEach(member => {
-            msg.edit('🇧🇨| **جاري الارسال**');
-            collected.first().delete();
-            member.send(`${thisMessage}\n\n${member} ,\nتم الارسال من : ${message.guild.name}\n تم الارسال بواسطة : ${message.author.tag}`);
-          });
-          }
-        });
-      });
-      });
-    }
+ let args = message.content.split(" ").slice(1)
+    let messagecount = parseInt(args);
+    if (args > 100) return message.reply("**🛑 || يجب ان يكون عدد المسح أقل من 100 .**").then(messages => messages.delete(5000))
+    if (!messagecount) return message.reply("**💡 || أختر كميه الرسائل المراد مسحها .**").then(messages => messages.delete(5000))
+    message.channel.fetchMessages({limit: messagecount + 1}).then(messages => message.channel.bulkDelete(messages));
+    message.channel.send(`\`${args}\` : __عدد الرسائل التي تم مسحها __ `).then(messages => messages.delete(5000));
+  }
   });
 
 
