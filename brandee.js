@@ -1335,21 +1335,21 @@ client.on('ready', () => {
 
 
 
-  client.on('messageUpdate', (message, newMessage) => {
-    if (message.content === newMessage.content) return;
-    if (!message || !message.id || !message.content || !message.guild || message.author.bot) return;
-    const channel = message.guild.channels.find('name', 'log');
-    if (!channel) return;
+var AsciiTable = require('ascii-data-table').default
+client.on('message', message =>{
 
-    let embed = new Discord.RichEmbed()
-       .setAuthor(`${message.author.tag}`, message.author.avatarURL)
-       .setColor('SILVER')
-       .setDescription(`✏ **تعديل رساله
-ارسلها <@${message.author.id}>                                                                                                                         تم تعديلها في شات** <#${message.channel.id}>\n\nقبل التعديل:\n \`${message.cleanContent}\`\n\nبعد التعديل:\n \`${newMessage.cleanContent}\``)
-       .setTimestamp();
-     channel.send({embed:embed});
+    if(message.content == "الرتب"){
+        var 
+        ros=message.guild.roles.size,
+        data = [['Rank', 'RoleName']]
+        for(let i =0;i<ros;i++){
+            if(message.guild.roles.array()[i].id !== message.guild.id){
+         data.push([i,`${message.guild.roles.filter(r => r.position == ros-i).map(r=>r.name)}`])
+        }}
+        let res = AsciiTable.table(data)
 
-
+        message.channel.send(`**\`\`\`xl\n${res}\`\`\`**`);
+    }
 });
 
 
