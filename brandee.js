@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const moment = require('moment');
-const args = message.content.split(' ');
 const fs = require('fs'); // npm i fs
 const ms = require('ms'); // npm i ms
 
