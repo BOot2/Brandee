@@ -1330,7 +1330,8 @@ client.on('guildMemberAdd', member => {
         .setTimestamp()
    
       channel.sendEmbed(embed);
-    });
+     };
+  });
     
     client.on('guildMemberRemove', member => {
         var embed = new Discord.RichEmbed()
@@ -1346,7 +1347,8 @@ client.on('guildMemberAdd', member => {
     if (!channel) return;
     channel.send({embed : embed});
 
-
+  };
+  });
 
 client.login(process.env.BOT_TOKEN);
 
