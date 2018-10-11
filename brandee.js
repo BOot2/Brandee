@@ -1241,42 +1241,72 @@ client.on('message', message => {
 });
 
 
-
-
-
-client.on('guildMemberAdd', (member) => {
-member.addRole(member.guild.roles.find('name', 'not active'));
-});
-
-
-client.on('message', message => {                      
-    if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'active')) {
-        let modlog = client.channels.find('name', 'الـــــــــشات_العام');
-       if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
-       message.channel.sendMessage(`اضغط على الصح عشان تتفعل`).then(msg => {
-        
-        
-        msg.react('✅')
-       .then(() => msg.react('✅'))
+//mute
+client.on("message", message => {
+    if (message.author.bot) return;
+    
+    let command = message.content.split(" ")[0];
+    
+    if (command === prefix + "mute") {
+          if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("**⚠ | `[MANAGE_ROLES]`لا يوجد لديك صلاحية**").catch(console.error);
+    let user = message.mentions.users.first();
+    let modlog = client.channels.find('name', 'log');
+    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
+    if (!muteRole) return message.reply("**`'Muted'`لا توجد رتبة** \n Muted سوي رتبة ").catch(console.error);
+    if (message.mentions.users.size < 1) return message.reply('**.mute <منشن الشخص> **').catch(console.error);
+    
+    const embed = new Discord.RichEmbed()
+      .setColor(0x00AE86)
+      .setTimestamp()
+      .addField('الأستعمال:', 'اسكت')
+      .addField('تم ميوت:', `${user.username}#${user.discriminator} (${user.id})`)
+      .addField('بواسطة:', `${message.author.username}#${message.author.discriminator}`)
      
-     
+     if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** :cry: `Manage Roles` لا يوجد لدي برمشن**').catch(console.error);
+   
+    if (message.guild.member(user).roles.has(muteRole.id)) {
+  return message.reply("**:mute: تم إعطاء العضو ميوت**").catch(console.error);
+  } else {
+      message.guild.member(user).addRole(muteRole).then(() => {
+  return message.reply("**:white_check_mark: تم إعطاء العضو ميوت كتابي**").catch(console.error);
+  });
+    }
+  };
+  });
+  
+     client.on("message", message => {
+    if (message.author.bot) return;
+    
+    let command = message.content.split(" ")[0];
+   //unmute 
+    if (command === prefix + "unmute") {
+          if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("**⚠ | `[MANAGE_ROLES]`لا يوجد لديك صلاحية**").catch(console.error);
+    let user = message.mentions.users.first();
+    let modlog = client.channels.find('name', 'log');
+    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
+    if (!muteRole) return message.reply("**⚠ | `[MUTE_ROLES]`لا يوجد لديك صلاحية**").catch(console.error);
+    if (message.mentions.users.size < 1) return message.reply('**.unmute <منشن الشخص>**').catch(console.error);
+    const embed = new Discord.RichEmbed()
+      .setColor(0x00AE86)
+      .setTimestamp()
+      .addField('الأستعمال:', 'اتكلم')
+      .addField('تم فك الميوت عن:', `${user.username}#${user.discriminator} (${user.id})`)
+      .addField('بواسطة:', `${message.author.username}#${message.author.discriminator}`)
+  
+    if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** ⚠ | `[MANAGE_ROLES_OR_PERMISSIONS]`لا يوجد لديك صلاحية **').catch(console.error);
+  
+    if (message.guild.member(user).removeRole(muteRole.id)) {
+  return message.reply("**:speaker: تم فك الميوت عن الشخص **").catch(console.error);
+  } else {
+      message.guild.member(user).removeRole(muteRole).then(() => {
+  return message.reply("**:white_check_mark: تم فك الميوت عن الشخص **").catch(console.error);
+  });
+    }
+  
+  };
+  
+  });
 
-       let activeFilter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-     
-       let active = msg.createReactionCollector(activeFilter, { time: 15000 });
-     
-                                                        
-                               active.on("collect", r => {
-                                   message.member.addRole(message.guild.roles.find("name", "active"));
-                                   message.member.removeRole(message.guild.roles.find("name", "not active"));
-                                   msg.delete();
-                                   message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
-     
-                                   })
-                                   })
-                                   }
-                                   });
 
 
 
