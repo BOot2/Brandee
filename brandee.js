@@ -1330,7 +1330,7 @@ client.on('guildMemberAdd', member => {
         .setTimestamp()
    
       channel.sendEmbed(embed);
-     };
+    
   });
     
     client.on('guildMemberRemove', member => {
