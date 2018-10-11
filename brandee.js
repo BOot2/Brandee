@@ -1338,8 +1338,7 @@ client.on('ready', () => {
 var AsciiTable = require('ascii-data-table').default
 client.on('message', message =>{
 
-    if(message.content == "الرتب"){
-        var 
+    if(message.content == "الرتب"){ 
         ros=message.guild.roles.size,
         data = [['Rank', 'RoleName']]
         for(let i =0;i<ros;i++){
