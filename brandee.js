@@ -1309,6 +1309,7 @@ client.on("message", message => {
 
 
 
+const { Client } = require('discord.js');
 var googl = require('goo.gl');
 
 googl.setKey('AIzaSyC9MdpZYw0ELyRQuAhz4ycYJnBUgE0BEDc');
@@ -1329,7 +1330,6 @@ client.on('ready', () => {
     });
 }
 });
-
 
 
 
