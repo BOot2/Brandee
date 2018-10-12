@@ -1384,7 +1384,7 @@ client.on('message', message => {
 .addField(`💛 dnd:  ${message.guild.members.filter(m=>m.presence.status == 'idle').size}`,'-',   true)   
 .addField(`🖤 offline: ${message.guild.members.filter(m=>m.presence.status == 'offline').size}`,'-',  true) 
 .addField(`💙  all: ${message.guild.memberCount}`,'-',   true)    
-.addField(`💚 bot: ${message.guild.bot.size}`,'-',   true)
+.addField(`💚 bot: ${message.guild.botCount}`,'-',   true)
      
          message.channel.send({embed});
 
