@@ -1393,7 +1393,6 @@ let INVITE = process.env.INVITE || "https://discord.gg/PXkfKxA", //رابط دع
     APPREDIRECT = process.env.APPREDIRECT || ""
 //End Config
  //فوق انت تسويهن
-const client = new Discord.Client({
     messageCacheMaxSize: 1, //Minimize RAM Load
     disabledEvents: ["TYPING_START"] // ^^
 })
@@ -1420,7 +1419,7 @@ let ranOnce = false
 let appReady = () => {
     if (ranOnce) return
     console.log("App Is Ready")
-    loop24H()
+    loop2M()
 }
  
 //Message Event
