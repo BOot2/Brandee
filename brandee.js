@@ -1400,7 +1400,7 @@ client.on('message',async message => {
   let args = message.content.split(' ');
   if(args[0] === `اسحب`) {
     if(!message.member.voiceChannel) return message.channel.send('- **يجب عليك ان تكون بروم صوتي لسحب الأعضاء**');
-    if(!mention) return message.channel.send('- **منشن شخص لسحبه**');
+    if(!mention && !args[1]) return message.channel.send('- **منشن شخص لسحبه**');
 
     if(!mention && args[1] && args[1] === 'all') {
       let m = message.guild.members.filter(r => r.voiceChannel).size;
