@@ -1397,7 +1397,6 @@ client.on('message', message => {
 client.on('message', message => {
     if (message.author.bot) return;
      if (message.content === prefix + "!M") {
-         if(!message.guild.member(message.author);
             
  message.channel.sendMessage(`
  **
