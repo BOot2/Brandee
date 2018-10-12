@@ -1400,12 +1400,17 @@ client.on('message',function(message) {
                     if (message.content === prefix + "M") {
  const embed = new Discord.RichEmbed()
 
-    .setDescription(`**Members info ✨
+    .setTitle(`**Members info ✨
  online:  ${message.guild.members.filter(m=>m.presence.status == 'online').size}
+
   Do not Disturb:  ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
+
   Idle:  ${message.guild.members.filter(m=>m.presence.status == 'idle').size}
+
   offline:  ${message.guild.members.filter(m=>m.presence.status == 'offline').size}
+
    all:  ${message.guild.memberCount - message.guild.members.filter(m=>m.user.bot).size}
+
  BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
          message.channel.send({embed});
 
