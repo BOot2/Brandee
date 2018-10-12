@@ -353,6 +353,7 @@ client.on('message', message => {
 
 
 client.on('message' , async (message) => {
+      if(message.author.bot) return;
        if(message.content.startsWith("!clear")) {
 if(!message.member.hasPermission('MANAGE_MESSAGES')) return 
            let args = message.content.split(" ").slice(1);
@@ -372,7 +373,8 @@ if(!message.member.hasPermission('MANAGE_MESSAGES')) return
   
 client.on('message', message => {
               if(!message.channel.guild) return;
-    if(message.content.startsWith('!bc')) {
+      if(message.author.bot) return;
+    if(message.content.startsWith('!1bc')) {
     if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
   if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
     let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
