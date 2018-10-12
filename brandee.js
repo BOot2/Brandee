@@ -1400,7 +1400,7 @@ client.on('message',function(message) {
                     if (message.content === prefix + "M") {
  const embed = new Discord.RichEmbed()
 
-    .setTitle(`**Members info ✨
+    .setDescription(`Members info 🔊
  online:  ${message.guild.members.filter(m=>m.presence.status == 'online').size}
 
   Do not Disturb:  ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
@@ -1411,7 +1411,8 @@ client.on('message',function(message) {
 
    all:  ${message.guild.memberCount - message.guild.members.filter(m=>m.user.bot).size}
 
- BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
+ BOT:  ${message.guild.members.filter(m=>m.user.bot).size} `)
+   .setFooter("ToRnEdO")
          message.channel.send({embed});
 
     }
