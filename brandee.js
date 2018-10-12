@@ -1394,6 +1394,28 @@ client.on('message', message => {
 
 
 
+client.on('message', message => {
+    if (message.author.bot) return;
+     if (message.content === prefix + "!M") {
+         if(!message.guild.member(message.author);
+            
+ message.channel.sendMessage(`
+ **
+
+
+
+offline: ${message.guild.members.filter(m=>m.presence.status == 'offline').size}
+ all: ${message.guild.memberCount}
+🤖 bot: ${message.guild.members.filter(r => r.user.bot).size}
+**
+`);
+
+    }
+});
+
+
+
+
 client.on('message',async message => {
   if(message.author.bot || message.channel.type === 'dm') return;
   let mention = message.mentions.users.first();
@@ -1430,6 +1452,9 @@ client.on('message',async message => {
     }
   }
 });
+
+
+
 
 
 
