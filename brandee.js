@@ -1342,30 +1342,31 @@ client.on('message', message => {//for dev
     if (!devs.includes(message.author.id)) return;
 
 if (message.content.startsWith(adminprefix + 'setgame')) {
-  client.user.setGame(argresult);   message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
+  client.user.setGame(argresult);   message.channel.sendMessage(`**${argresult} The bot playing has been changed to**`)
 } else
   if (message.content.startsWith(adminprefix + 'setname')) {
 client.user.setUsername(argresult).then
-    message.channel.sendMessage(`**${argresult}** : تم تغيير أسم البوت إلى`)
-return message.reply("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");
+    message.channel.sendMessage(`**${argresult}** : The name of the bot has been changed to`)
+return message.reply("**You can not change the name. You must stay for two hours . . . **");
 } else
   if (message.content.startsWith(adminprefix + 'setavatar')) {
 client.user.setAvatar(argresult);
-  message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
+  message.channel.sendMessage(`**${argresult}** : The bot image has been changed);
       } else
 if (message.content.startsWith(adminprefix + 'setT')) {
-  client.user.setGame(argresult, "https://www.twitch.tv/faresgameryt");
-    message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
+  client.user.setGame(argresult, "https://www.twitch.tv/istvzazi");
+    message.channel.sendMessage(`**Tweety has been changed to   ${argresult}**`)
 }
 
 client.on('message', message => {//restart
     if(message.content === adminprefix + "restart") {
           if (!devs.includes(message.author.id)) return;
-              message.channel.send(`⚠️ **الشخص الذي اعاد تشغيل البوت ${message.author.username}**`);
-            console.log(`⚠️ جاري اعادة تشغيل البوت... ⚠️`);
+              message.channel.send(`⚠️ **The person who restarted the bot ${message.author.username}**`);
+            console.log(`⚠️ Restarting bot ... ⚠️`);
             client.destroy();
             child_process.fork(__dirname + "/brandee.js");
-            console.log(`تم اعادة تشغيل البوت`);
+            console.log(`The bot was restarted`);
+              message.channel.send(`⚠️ **The bot was restarted**`);
         }
 
 
