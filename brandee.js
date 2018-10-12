@@ -1346,7 +1346,7 @@ client.on("message", (edited) => {
                 SEND_MESSAGES: true,
                 READ_MESSAGES: true
             });
-            c.overwritePermissions(edited2, {
+            client.overwritePermissions(edited2, {
                 SEND_MESSAGES: false,
                 READ_MESSAGES: false
             });
