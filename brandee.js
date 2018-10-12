@@ -1342,7 +1342,7 @@ client.on("message", (edited) => {
         edited.guild.createChannel(`just-ticket`, "text").then(c => {
             let edited1 = edited.guild.roles.find("name", "Say");
             let edited2 = edited.guild.roles.find("name", "@everyone");
-            c.overwritePermissions(edited1, {
+            client.overwritePermissions(edited1, {
                 SEND_MESSAGES: true,
                 READ_MESSAGES: true
             });
@@ -1350,7 +1350,7 @@ client.on("message", (edited) => {
                 SEND_MESSAGES: false,
                 READ_MESSAGES: false
             });
-            c.overwritePermissions(message.author, {
+            client.overwritePermissions(message.author, {
                 SEND_MESSAGES: true,
                 READ_MESSAGES: true
             });
@@ -1359,7 +1359,7 @@ client.on("message", (edited) => {
                 .setColor(0xCF40FA)
                 .addField(` ${message.author.username}!`, `**مرحبآ    , اكتب  ماتريد وسيتم الرد عليك  . **`)
                 .setTimestamp();
-            c.send({
+            client.send({
                 embed: embed
             });
         }).catch(console.error); 
