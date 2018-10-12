@@ -1333,7 +1333,6 @@ client.on('ready', () => {
 
 
 
-var dat = JSON.parse("{}");
 function forEachObject(obj, func) {
     Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
 }
