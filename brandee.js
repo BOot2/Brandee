@@ -1393,6 +1393,44 @@ client.on('message', message => {
 
 
 
+client.on('message',async message => {
+  if(message.author.bot || message.channel.type === 'dm') return;
+  let mention = message.mentions.users.first();
+  let member = message.guild.member(mention);
+  let args = message.content.split(' ');
+  if(args[0] === `اسحب`) {
+    if(!message.member.voiceChannel) return message.channel.send('- **يجب عليك ان تكون بروم صوتي لسحب الأعضاء**');
+    if(!mention) return message.channel.send('- **منشن شخص لسحبه**');
+
+    if(!mention && args[1] && args[1] === 'all') {
+      let m = message.guild.members.filter(r => r.voiceChannel).size;
+      let errors = 0;
+      let done = 0;
+      message.guild.members.filter(r => r.voiceChannel).forEach(g => {
+        g.setVoiceChannel(message.guild.member(message.author).voiceChannel.id).then(() => {
+          done++;
+          if(done === m) {
+            message.channel.send(`:white_small_square: **Done \`${message.guild.member(message.author).voiceChannel.name}\`**`);
+          }
+        }).catch(e => {
+          errors++;
+          if(errors === m) {
+            message.channel.send(`:white_small_square: **Error \`${e.message}\`**`);
+          }
+        })
+      });
+    } else if(mention) {
+      if(!member.voiceChannel) return message.channel.send(`- **يجب ان يكون العضو بروم لأستخدام هذا الأمر عليه**`);
+      member.setVoiceChannel(message.guild.member(message.author).voiceChannel.id).then(() => {
+        message.channel.send(`:white_small_square: **Done \`${message.guild.member(message.author).voiceChannel.name}\`**`);
+      }).catch(e => {
+        message.channel.send(`:white_small_square: **Error \`${e.message}\`**`);
+      });
+    }
+  }
+});
+
+
 
 client.login(process.env.BOT_TOKEN);
 
