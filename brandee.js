@@ -1394,35 +1394,23 @@ client.on('message', message => {
 
 
 
-client.on('message', message => {
-    if (message.author.bot) return;
-     if (message.content === prefix + "!M") {
-if(!message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")) return message.reply(`
-         
-         **لست من المشرفين لن يتم ارسال الرسالة إليك**
-         
-         
-         `);
- message.channel.sendMessage(`
+client.on('message',function(message) {
+  if (message.author.bot) return;
+                  if(!message.channel.guild) return;
+                    if (message.content === prefix + "M") {
+ const embed = new Discord.RichEmbed()
 
- **
-`online `: ${message.guild.members.filter(m=>m.presence.status == 'online').size}
-
-`Do not Disturb `: ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
-
-`idle `:  ${message.guild.members.filter(m=>m.presence.status == 'idle').size}
-
-`offline `: ${message.guild.members.filter(m=>m.presence.status == 'offline').size}
-
-`all `: ${message.guild.memberCount}
-
-🤖 `bot `: ${message.guild.members.filter(r => r.user.bot).size}
-**
-
-`);
+    .setDescription(`**Members info ✨
+ online:  ${message.guild.members.filter(m=>m.presence.status == 'online').size}
+  Do not Disturb:  ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
+  Idle:  ${message.guild.members.filter(m=>m.presence.status == 'idle').size}
+  offline:  ${message.guild.members.filter(m=>m.presence.status == 'offline').size}
+   all:  ${message.guild.memberCount - message.guild.members.filter(m=>m.user.bot).size}
+ BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
+         message.channel.send({embed});
 
     }
-});
+      });
 
 
 
