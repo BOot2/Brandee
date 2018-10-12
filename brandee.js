@@ -4,7 +4,6 @@ const moment = require('moment');
 const fs = require('fs'); // npm i fs
 const ms = require('ms'); // npm i ms
 const child_process = require('child_process')
-const superagent = require('superagent')
 
 const prefix = '!'
 
