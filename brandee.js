@@ -1412,7 +1412,8 @@ client.on('message',function(message) {
    all:  ${message.guild.memberCount - message.guild.members.filter(m=>m.user.bot).size}
 
  BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
-   .setFooter(\`\"ToRnEdO"\`\)
+
+   .setFooter(`\"ToRnEdO"\`)
          message.channel.send({embed});
 
     }
