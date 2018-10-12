@@ -1375,7 +1375,6 @@ client.on('message', message => {//restart
 
 
 
-const discord = require("discord.js");
 const ytdl = require("ytdl-core");
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube('AIzaSyDGS4m_qyOig6rPM3mn-0EGgBf9_b-VSIU');
