@@ -99,7 +99,7 @@ client.on('message', message => {
   if (message.content === `${prefix}`) {
     const embed = new Discord.RichEmbed()
      .setColor("RANDOM")
-.setFooter(' YES ')
+.setFooter(' What ?  ')
       message.channel.send({embed});
      }
     });
