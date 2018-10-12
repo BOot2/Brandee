@@ -1333,62 +1333,49 @@ client.on('ready', () => {
 
 
 
+var dat = JSON.parse(fs.readFileSync('./invite.json', 'utf8'));
+function forEachObject(obj, func) {
+    Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
+}
+client.on("ready", () => {
+    var guild;
+    while (!guild)
+        guild = client.guilds.get("487982547729383424")
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            dat[Inv] = Invite.uses;
+        })
+    })
+})
 client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.get("499257293150486531");
+    let channel = member.guild.channels.find('name', 'welcome');
     if (!channel) {
-        console.log("!the channel id it's not correct");
+        console.log("!channel fails");
         return;
     }
     if (member.id == client.user.id) {
         return;
     }
-    console.log('-');
+    console.log('made it till here!');
     var guild;
     while (!guild)
-        guild = client.guilds.get("487982547729383424");
+        guild = client.guilds.get("487982547729383424")
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
             var Inv = Invite.code;
             if (dat[Inv])
                 if (dat[Inv] < Invite.uses) {
-                    setTimeout(function() {
- channel.send(`**invited by** ${Invite.inviter} `) ;
-                    },1500);
+                    console.log(3);
+ channel.send(`${member} Joined By ${Invite.inviter}'s invite ${Invite.code} | invited by ${Invite.inviter}`)
  }
             dat[Inv] = Invite.uses;
-       
-       });
-    });
+        })
+    })
 });
 
 
-client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.get("499257293150486531");
-    if (!channel) {
-        console.log("!the channel id it's not correct");
-        return;
-    }
-    if (member.id == client.user.id) {
-        return;
-    }
-    console.log('-');
-    var guild;
-    while (!guild)
-        guild = client.guilds.get("487982547729383424");
-    guild.fetchInvites().then((data) => {
-        data.forEach((Invite, key, map) => {
-            var Inv = Invite.code;
-            if (dat[Inv])
-                if (dat[Inv] < Invite.uses) {
-                    setTimeout(function() {
- channel.send(`**invited by** ${Invite.inviter} `) ;
-                    },1500);
- }
-            dat[Inv] = Invite.uses;
-       
-       });
-    });
-});
+
 
 
 
