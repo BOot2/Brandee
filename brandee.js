@@ -1381,7 +1381,6 @@ if (process.version.startsWith("v6")) throw new Error("This Bot requires Node 7v
  
 const express = require("express")
 const app = express()
-const superagent = require("superagent")
 //Config
 let INVITE = process.env.INVITE || "https://discord.gg/PXkfKxA", //رابط دعووه سيرفرك
     GUILD = process.env.GUILD || "485520260053860365", //ايدي حق سيرفرك
