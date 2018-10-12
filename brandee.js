@@ -1397,7 +1397,12 @@ client.on('message', message => {
 client.on('message', message => {
     if (message.author.bot) return;
      if (message.content === prefix + "!M") {
-            
+if(!message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")) return message.reply(`
+         
+         **لست من المشرفين لن يتم ارسال الرسالة إليك**
+         
+         
+         `);
  message.channel.sendMessage(`
 
  **
