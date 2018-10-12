@@ -1355,7 +1355,7 @@ client.user.setAvatar(argresult);
       } else
 if (message.content.startsWith(adminprefix + 'setT')) {
   client.user.setGame(argresult, "https://www.twitch.tv/istvzazi");
-    message.channel.sendMessage(`**Twitch has been changed to   ${argresult}**`)
+    message.channel.sendMessage(`**twitch has been changed to   ${argresult}**`)
 }
 
 client.on('message', message => {//restart
