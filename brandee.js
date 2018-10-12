@@ -4,6 +4,8 @@ const moment = require('moment');
 const fs = require('fs'); // npm i fs
 const ms = require('ms'); // npm i ms
 const child_process = require('child_process')
+const bot = new Discord.Client({disableEveryone: true});
+
 
 const prefix = '!'
 
@@ -1375,7 +1377,15 @@ client.on('message', message => {//restart
 
 
 
-
+bot.on("message", async message => {
+  if(message.author.bot) return;
+  if(message.channel.type === "dm") return;
+  if(!message.member.hasPermission("ADMINISTRATOR")){
+  if(message.content.includes("http://") || message.content.includes("https://") || message.content.includes("www") || message.content.includes(".com") || message.content.includes(".gg")){
+  message.delete();
+  message.channel.send("**Your message was deleted because it cointains a link.**").then(msg => msg.delete(5000));
+  }
+}
 
 
 
