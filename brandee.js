@@ -1400,12 +1400,17 @@ client.on('message', message => {
             
  message.channel.sendMessage(`
  **
+`online `: ${message.guild.members.filter(m=>m.presence.status == 'online').size}
 
+`Do not Disturb `: ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}
 
+`idle `:  ${message.guild.members.filter(m=>m.presence.status == 'idle').size}
 
-offline: ${message.guild.members.filter(m=>m.presence.status == 'offline').size}
- all: ${message.guild.memberCount}
-🤖 bot: ${message.guild.members.filter(r => r.user.bot).size}
+`offline `: ${message.guild.members.filter(m=>m.presence.status == 'offline').size}
+
+`all `: ${message.guild.memberCount}
+
+🤖 `bot `: ${message.guild.members.filter(r => r.user.bot).size}
 **
 `);
 
