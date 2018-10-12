@@ -1353,7 +1353,7 @@ client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
       } else
 if (message.content.startsWith(adminprefix + 'setT')) {
-  Rocket.user.setGame(argresult, "https://www.twitch.tv/faresgameryt");
+  client.user.setGame(argresult, "https://www.twitch.tv/faresgameryt");
     message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
 }
 
@@ -1362,7 +1362,7 @@ client.on('message', message => {//restart
           if (!devs.includes(message.author.id)) return;
               message.channel.send(`⚠️ **الشخص الذي اعاد تشغيل البوت ${message.author.username}**`);
             console.log(`⚠️ جاري اعادة تشغيل البوت... ⚠️`);
-            Rocket.destroy();
+            client.destroy();
             child_process.fork(__dirname + "/bot.js");
             console.log(`تم اعادة تشغيل البوت`);
         }
