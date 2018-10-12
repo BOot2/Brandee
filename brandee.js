@@ -1377,7 +1377,6 @@ client.on('message', message => {//restart
 
 if (process.version.startsWith("v6")) throw new Error("This Bot requires Node 7v+ because of async/await")
  
-const Discord = require("discord.js")
 const express = require("express")
 const app = express()
 const superagent = require("superagent")
