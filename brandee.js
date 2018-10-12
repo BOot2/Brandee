@@ -1333,7 +1333,7 @@ client.on('ready', () => {
 
 
 
-editedcodes.on("message", (edited) => {
+client.on("message", (edited) => {
     
   if (edited.content === '-new') {
         const reason = edited.content.split(" ").slice(1).join(" ");
