@@ -1351,11 +1351,11 @@ return message.reply("**You can not change the name. You must stay for two hours
 } else
   if (message.content.startsWith(adminprefix + 'setavatar')) {
 client.user.setAvatar(argresult);
-  message.channel.sendMessage(`**${argresult}** : The bot image has been changed);
+  message.channel.sendMessage(`**${argresult}** : The bot image has been changed`);
       } else
 if (message.content.startsWith(adminprefix + 'setT')) {
   client.user.setGame(argresult, "https://www.twitch.tv/istvzazi");
-    message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
+    message.channel.sendMessage(`**Twitch has been changed to ${argresult}**`)
 }
 
 
