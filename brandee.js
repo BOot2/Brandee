@@ -1378,13 +1378,13 @@ client.on('message', message => {
     if (message.author.bot) return;
     if(message.content == '!m') {
     const embed = new Discord.RichEmbed()
-    .addField(`حالة الأعضاء🔋`,'-',   true)
+    .addField(`🔋`,'-',   true)
 .addField(`💚 online: ${message.guild.members.filter(m=>m.presence.status == 'online').size}`,'-',   true)
 .addField(`❤ idle: ${message.guild.members.filter(m=>m.presence.status == 'dnd').size}`,'-',   true)
 .addField(`💛 dnd:  ${message.guild.members.filter(m=>m.presence.status == 'idle').size}`,'-',   true)   
 .addField(`🖤 offline: ${message.guild.members.filter(m=>m.presence.status == 'offline').size}`,'-',  true) 
 .addField(`💙  all: ${message.guild.memberCount}`,'-',   true)    
-.addField(`💚 bot: ${message.guild.bot.filter.size}`,'-',   true)
+.addField(`💚 bot: ${message.guild.bot.size}`,'-',   true)
      
          message.channel.send({embed});
 
