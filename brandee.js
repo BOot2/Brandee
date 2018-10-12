@@ -1398,7 +1398,7 @@ client.on('message', message => {
     if (message.author.bot) return;
      if (message.content === prefix + "!M") {
             
- message.channel.sendMessage(`
+ message.channel.sendMessage(
  **
 `online `: ${message.guild.members.filter(m=>m.presence.status == 'online').size}
 
@@ -1412,7 +1412,7 @@ client.on('message', message => {
 
 🤖 `bot `: ${message.guild.members.filter(r => r.user.bot).size}
 **
-`);
+);
 
     }
 });
