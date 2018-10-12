@@ -1333,16 +1333,17 @@ client.on('ready', () => {
 
 
 
+var dat = JSON.parse("{}");
 function forEachObject(obj, func) {
     Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
 }
 client.on("ready", () => {
     var guild;
     while (!guild)
-        guild = client.guilds.find("name", "${message.guild.name}")
+        guild = client.guilds.find("name", "گهوة ابو مازن.")
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
-            var Inv = Invite.tornedo;
+            var Inv = Invite.code;
             dat[Inv] = Invite.uses;
         })
     })
@@ -1359,7 +1360,7 @@ client.on("guildMemberAdd", (member) => {
     console.log('made it till here!');
     var guild;
     while (!guild)
-        guild = client.guilds.find("name", "${message.guild.name}")
+        guild = client.guilds.find("name", "گهوة ابو مازن.")
     guild.fetchInvites().then((data) => {
         data.forEach((Invite, key, map) => {
             var Inv = Invite.code;
@@ -1367,13 +1368,12 @@ client.on("guildMemberAdd", (member) => {
                 if (dat[Inv] < Invite.uses) {
                     console.log(3);
                     console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
- channel.send(` ♥ **invited By ${Invite.inviter} ♥ `)            
+ channel.send(` ♥ **تم دعوته من قبل ${Invite.inviter} ♥ `)            
  }
             dat[Inv] = Invite.uses;
         })
     })
 });
-
 
 
 
