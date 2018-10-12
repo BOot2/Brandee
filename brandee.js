@@ -1393,8 +1393,6 @@ let INVITE = process.env.INVITE || "https://discord.gg/PXkfKxA", //رابط دع
     APPREDIRECT = process.env.APPREDIRECT || ""
 //End Config
  //فوق انت تسويهن
-    messageCacheMaxSize: 1, //Minimize RAM Load
-})
  
 let loop2M = () => { //The bot will leave then join the guild every 24 hours
     leaveJoin()
