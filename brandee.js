@@ -1598,7 +1598,6 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
 	console.log(video);
 	const song = {
 		id: video.id,
-		title: Util.escapeMarkdown(video.title),
 		url: `https://www.youtube.com/watch?v=${video.id}`
 	};
 	if (!serverQueue) {
