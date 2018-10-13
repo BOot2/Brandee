@@ -1590,7 +1590,7 @@ client.on('message', message => {
     message.guild.members.filter(m => m.presence.status !== 'offline').forEach(m => {
    m.send(`${argresult}\n ${m}`);
   })
-   message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` :mailbox:  عدد المستلمين `); 
+   message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` :mailbox: - [ :inbox_tray: :: 1049 ] ・عدد الرسائل المستلمة `); 
    message.delete(); 
   };     
   });
