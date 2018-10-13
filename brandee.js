@@ -1597,7 +1597,7 @@ var msg;
         msg = parseInt();
  
       message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-      message. args.sendMessage("", {embed: bc {
+      message. channel.sendMessage("", {embed: bc {
         title: "`` To join click here ``",
         URL: "https://discord.gg/M6kZDG",
         color: 0x06DF00,
