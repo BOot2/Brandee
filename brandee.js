@@ -1483,8 +1483,6 @@ client.on('reconnecting', () => console.log('I am reconnecting now!'));
 
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
-	if (!msg.content.startsWith(PREFIX)) return undefined;
-
 	const args = msg.content.split(' ');
 	const searchString = args.slice(1).join(' ');
 	const url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
