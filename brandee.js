@@ -1601,8 +1601,16 @@ var msg;
         title: "`` To join click here ``",
         URL: "https://discord.gg/M6kZDG",
         color: 0x06DF00,
-        footer: {  
+        footer: footer: {          //Codes Development .
+ 
+        }           //Codes Development .
+      }}).then(msg => {msg.delete(3000)});
+ 
+})     
+ 
+})
 
+  };     
   });
 
 
