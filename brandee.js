@@ -1401,7 +1401,7 @@ client.on('message',function(message) {
                   if(!message.channel.guild) return;
                     if (message.content === prefix + "M") {
  const embed = new Discord.RichEmbed()
-    .setThumbnail(message.guild.avatarURL)      
+    .setThumbnail(message.guild.iconURL)      
     .setDescription(`**Members info 📢
  online:  ${message.guild.members.filter(m=>m.presence.status == 'online').size}
 
@@ -1415,7 +1415,7 @@ client.on('message',function(message) {
 
  BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
 
-   .setFooter(\n\"ToRnEdO"\n\)
+   .setFooter("ToRnEdO")
          message.channel.send({embed});
 
     }
