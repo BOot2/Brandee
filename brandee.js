@@ -1417,7 +1417,7 @@ client.on('message',function(message) {
 
    .setFooter("ToRnEdO")
 
-    .setFooter(`Time :[${hours} : ${minutes}]`);
+    .setFooter(`Time :[${hours} : ${minutes}`)
          message.channel.send({embed});
 
     }
