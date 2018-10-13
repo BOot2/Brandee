@@ -1591,12 +1591,15 @@ client.on('message', message => {
    m.send(`${argresult}\n ${m}`);
   })
    message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` :mailbox: ・عدد الرسائل المستلمة `); 
-   message.delete(); 
-
+   message.delete();
+ 
+var msg;
+        msg = parseInt();
+ 
       message.channel.fetchMessages({limit: msg}).then(messages => message.author.bulkDelete(messages)).catch(console.error);
       message.channel.sendMessage("", {embed: {
         title: "`` To join click here ``",
-        URL: https://discord.gg/M6kZDG
+        URL: "https://discord.gg/M6kZDG",
         color: 0x06DF00,
         footer: {  
 
