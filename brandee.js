@@ -1416,8 +1416,6 @@ client.on('message',function(message) {
  BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
 
    .setFooter("ToRnEdO")
-
-    .setFooter(`Time :[${hours} : ${minutes}`)
          message.channel.send({embed});
 
     }
