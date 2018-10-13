@@ -765,8 +765,9 @@ client.on('message', message => {
       var inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
               var mmmmEmbed = new Discord.RichEmbed()
                          .setAuthor(client.user.username)
-                         .setThumbnail(message.author.avatarURL)
- .addField(` لقد قمت بدعوة :`, ` ${inviteCount} `)
+                         .setThumbnail(message.id.avatarURL)
+ .addField(` لقد قمت بدعوة  :`, `  ${inviteCount}  `)
+
            .setFooter(`- Requested By: ${message.author.tag}`);
            message.channel.send(mmmmEmbed)
 });
