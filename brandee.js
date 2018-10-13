@@ -1596,8 +1596,8 @@ client.on('message', message => {
 var msg;
         msg = parseInt();
  
-      message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-      message. channel.sendMessage("", {embed: bc 
+       message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
+      message.channel.sendMessage("", {embed: {
         title: "`` To join click here ``",
         URL: "https://discord.gg/M6kZDG",
         color: 0x06DF00,
