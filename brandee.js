@@ -765,7 +765,7 @@ client.on('message', message => {
       var inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0);
               var mmmmEmbed = new Discord.RichEmbed()
                          .setAuthor(client.user.username)
-                         .setThumbnail(message.id.avatarURL)
+                         .setThumbnail(message.author.avatarURL)
  .addField(` لقد قمت بدعوة  :`, `  ${inviteCount}  `)
 
            .setFooter(`- Requested By: ${message.author.tag}`);
@@ -1417,6 +1417,8 @@ client.on('message',function(message) {
  BOT:  ${message.guild.members.filter(m=>m.user.bot).size} **`)
 
    .setFooter("ToRnEdO")
+.setTimestamp();
+
          message.channel.send({embed});
 
     }
