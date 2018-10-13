@@ -1603,7 +1603,6 @@ var msg;
         color: 0x06DF00,
         footer: {  
 
-  };     
   });
 
 
