@@ -76,8 +76,6 @@ const tornedo = {
 
 
 
-
-
 client.on('message', message => {
     if (!message.guild) return; 
     if (message.content.startsWith("رابط")) {
@@ -384,12 +382,6 @@ client.on('message', message => {
     msg.react('✅')
     .then(() => msg.react('❌'))
     .then(() =>msg.react('✅'))
-
-
-
-
-
-
 
     let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
     let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
@@ -902,7 +894,7 @@ message.channel.send(embed);
         .setColor('RANDOM')
         .setThumbnail(memberavatar)
         .addField(':running_shirt_with_sash: | name :  ',`${member}`)
-        .addField(':loudspeaker: | اطلق من دخل' , `Welcome to the server, ${member}`)
+        .addField(':loudspeaker: | اطلق من دخل' , `**Welcome TO the server**, ${member}`)
         .addField(':id: | user :', "**[" + `${member.id}` + "]**" )
                 .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
 
@@ -967,7 +959,8 @@ message.channel.send(embed)
           if (msg.guild.channels.find('name', 'log')) {
             //اذا غيرت فوق غير هنا كمان 
             msg.guild.channels.find('name', 'log').send(`
-          تم اعطائك تنبيه : ${msg.mentions.members.first()}
+          **تم اعطائك تحذير** : ${msg.mentions.members.first()}
+
           لأنك قمت بما يلي
           ${args.join(" ").split(msg.mentions.members.first()).slice(' ')}
           `)
