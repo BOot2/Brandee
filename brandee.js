@@ -1596,15 +1596,15 @@ client.on('message', message => {
 var msg;
         msg = parseInt();
  
-      message.channel.fetchMessages({limit: msg}).then(messages => message.author.bulkDelete(messages)).catch(console.error);
-      message.channel.sendMessage("", {embed: {
+      message.guild.fetchMessages({limit: msg}).then(messages => message.author.bulkDelete(messages)).catch(console.error);
+      message.guild.sendMessage("", {embed: {
         title: "`` To join click here ``",
         URL: "https://discord.gg/M6kZDG",
         color: 0x06DF00,
-        footer: {          //Codes Development .
+        footer: { 
  
-        }           //Codes Development .
-      }}).then(msg => {msg.delete(3000)});
+        }           
+      }})
  
     
     }
