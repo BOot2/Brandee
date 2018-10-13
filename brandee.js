@@ -1460,17 +1460,17 @@ client.on('message',async message => {
 
 
 client.on('message', message => {
-    var prefix = "!";         //<=== هنا تقدر تغير البريفكس
+    var prefix = "!";
    if(!message.channel.guild) return;
-if(message.content.startsWith(prefix + '!clear')) {            //Codes Development .
-if(!message.channel.guild) return message.channel.send('**This Command is Just For Servers**').then(m => m.delete(5000));         //Codes Development .
-if(!message.member.hasPermission('MANAGE_MESSAGES')) return      message.channel.send('**You Do not have permission** `MANAGE_MESSAGES`' );
-let args = message.content.split(" ").join(" ").slice(2 + prefix.length);      //Codes Development .
+if(message.content.startsWith(prefix + 'clr')) {      
+if(!message.channel.guild) return message.channel.send('**This is only for servers**').then(m => m.delete(5000));
+if(!message.member.hasPermission('MANAGE_MESSAGES')) return      message.channel.send('**You do not have permission** `MANAGE_MESSAGES`' );
+let args = message.content.split(" ").join(" ").slice(2 + prefix.length);      
 let request = `Requested By ${message.author.username}`;
-message.channel.send(`**Are You sure you want to clear the chat?**`).then(msg => {
+message.channel.send(`**Are you sure to clear the chat ?**`).then(msg => {
 msg.react('✅')
 .then(() => msg.react('❌'))
-.then(() =>msg.react('✅'))   //Codes Development .
+.then(() =>msg.react('✅'))
  
 let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
 let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
@@ -1485,15 +1485,15 @@ var msg;
       message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
       message.channel.sendMessage("", {embed: {
         title: "`` Chat Deleted ``",
-        color: 0x06DF00,
-        footer: {          //Codes Development .
+        color: 979392,
+        footer: {
  
-        }           //Codes Development .
+        } 
       }}).then(msg => {msg.delete(3000)});
  
-})     //Codes Development .
-reaction2.on("collect", r => {   //Codes Development .
-message.channel.send(`**Chat deletion cancelled**`).then(m => m.delete(5000));
+})     
+reaction2.on("collect", r => {   
+message.channel.send(`**Chat deletion cancelled**`).then(m => m.delete(3000));
 msg.delete();
 })
 })
@@ -1501,6 +1501,29 @@ msg.delete();
 });
 
 
+
+client.on('message', message => { 
+                            if (message.content.startsWith("!??")) {
+                            message.channel.send({
+                                embed: new Discord.RichEmbed()
+                                    .setAuthor(Majd.user.username,Rocket.user.avatarURL)
+                                    .setThumbnail(Majd.user.avatarURL)
+                                    .setColor('RANDOM')
+                                    .setTitle('Name... Bot ')
+                                    .addField('UPtime', [timeCon(process.uptime())], true)
+                                    .addField('PinG' , [${Date.now() - message.createdTimestamp} + 'MS'], true)
+                                    .addField('RAM"s Usage', [${(process.memoryUsage().rss / 1048576).toFixed()}MB], true)
+                                    .addField('servers', [Majd.guilds.size], true)
+                                    .addField('channels' , [ ${Majd.channels.size} ] , true)
+                                    .addField('Users' ,[ ${Majd.users.size} ] , true)
+                                    .addField('Name' , [ ${Majd.user.tag} ] , true)
+                                    .addField('ID!' , [ ${Majd.user.id} ] , true)
+                                          .addField('Prefix' , [ ${prefix} ] , true)
+                                          .addField('Language' , [ JS ] , true)
+   
+
+  }
+  });
 
 
 
