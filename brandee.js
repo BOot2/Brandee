@@ -1459,6 +1459,29 @@ client.on('message',async message => {
 
 
 
+client.on('message', message => {
+    let log = message.guild.channels.find('name', 'log');
+    let reason = message.content.split(" ").slice(2).join(' ');
+    let p = message.mentions.members.first();
+    if(message.content.startsWith(prefix + "2warn")){
+        if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply(`**❌ | This Command is Just for Adminstration**`);
+            message.delete();
+        if(!p) return message.reply(`Mention a User!`);
+        if(reason.length < 1) return message.reply(`Set a reason!`)
+        var embed = new Discord.RichEmbed()
+        .setTitle(`New Warning!`)
+        .addField(`For`, `<@${p.user.id}>`)
+        .addField(`By`, `<@${message.author.id}>`)
+        .addField(`Reason`, reason)
+        .addField(`In Chat`, `<#${message.channel.id}>`)
+        .setColor("WHITE")
+        .setTimestamp()
+        .setFooter(" ")
+            message.channel.send(`${p} ` + reason)
+            message.delete();
+        log.send({embed})
+    }
+});
 
 
 
