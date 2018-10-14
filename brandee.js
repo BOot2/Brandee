@@ -1592,7 +1592,6 @@ client.on('message', message => {
   })
    message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` :mailbox: ・عدد الرسائل المستلمة `); 
    message.delete();
-     });
     }
 });
 
