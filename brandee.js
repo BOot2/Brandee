@@ -1593,22 +1593,10 @@ client.on('message', message => {
    message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` :mailbox: ・عدد الرسائل المستلمة `); 
    message.delete();
  
-var msg;
-        msg = parseInt();
- 
-       message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
-      message.channel.sendMessage("", {embed: {
-        title: "`` To join click here ``",
-        URL: "https://discord.gg/M6kZDG",
-        color: 0x06DF00,
-        footer: { 
- 
-        }           
-      }})
- 
-    
-    }
-});
+
+
+
+
 
 client.login(process.env.BOT_TOKEN);
 
