@@ -1320,7 +1320,7 @@ client.on('ready', () => {
     .then(function (shortenUrl) {
         message.channel.send(`الرابط المختصر: ${shortenUrl}`);
     })
-    .catch(find (err) {
+    .catch(function (err) {
         console.log(err.message);
     });
 }
