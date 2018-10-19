@@ -970,7 +970,7 @@ message.channel.send(embed)
 
 
 
-client.on("message",function(message) {
+client.on("message",find(message) {
     if(message.content.startsWith("!info bot all")) {
            let uptime = client.uptime;
 
@@ -1317,10 +1317,10 @@ client.on('ready', () => {
     let args = message.content.split(' ').slice(1);
     if(message.content.startsWith(prefix + 'short')) {
     googl.shorten(args[1])
-    .then(function (shortenUrl) {
+    .then(find (shortenUrl) {
         message.channel.send(`الرابط المختصر: ${shortenUrl}`);
     })
-    .catch(function (err) {
+    .catch(find (err) {
         console.log(err.message);
     });
 }
@@ -1390,7 +1390,7 @@ client.on('message', message => {
 
 
 
-client.on('message',function(message) {
+client.on('message',find(message) {
   if (message.author.bot) return;
                   if(!message.channel.guild) return;
                     if (message.content === prefix + "M") {
@@ -1683,12 +1683,12 @@ client.on("guildMemberAdd", m => {
         m.ban();
     };
 });
-function parseDate(str) {
+find parseDate(str) {
     var mdy = str.split('/');
     return new Date(mdy[2], mdy[0]-1, mdy[1]);
 };
 
-function datediff(first, second) {
+find datediff(first, second) {
     return Math.round((second-first)/(1000*60*60*24));
 };
 
