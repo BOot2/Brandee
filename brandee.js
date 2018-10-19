@@ -970,7 +970,7 @@ message.channel.send(embed)
 
 
 
-client.on("message",find(message) {
+client.on("message",function(message) {
     if(message.content.startsWith("!info bot all")) {
            let uptime = client.uptime;
 
