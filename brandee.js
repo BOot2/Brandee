@@ -1317,7 +1317,7 @@ client.on('ready', () => {
     let args = message.content.split(' ').slice(1);
     if(message.content.startsWith(prefix + 'short')) {
     googl.shorten(args[1])
-    .then(find (shortenUrl) {
+    .then(function (shortenUrl) {
         message.channel.send(`الرابط المختصر: ${shortenUrl}`);
     })
     .catch(find (err) {
@@ -1683,12 +1683,12 @@ client.on("guildMemberAdd", m => {
         m.ban();
     };
 });
-find parseDate(str) {
+function parseDate(str) {
     var mdy = str.split('/');
     return new Date(mdy[2], mdy[0]-1, mdy[1]);
 };
 
-find datediff(first, second) {
+function datediff(first, second) {
     return Math.round((second-first)/(1000*60*60*24));
 };
 
