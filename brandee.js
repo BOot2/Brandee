@@ -1677,5 +1677,356 @@ client.on('message', message => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+client.on('message', async message => {
+
+
+    var command = message.content.toLowerCase().split(" ")[0];
+
+
+    var name = '';
+
+
+    var age = '';
+
+
+    var dut = '';
+
+
+    var fa2dh = '';
+
+  
+
+    var yooo = '';
+
+
+    var filter = m => m.author.id === message.author.id;
+
+
+    var subChannel = message.guild.channels.find(c => c.name === 'submissions');
+
+
+
+
+    if(command == prefix + 'تقديم') {
+
+
+        if(message.author.bot) return;
+
+
+        if(message.channel.type === 'dm') return;
+
+
+
+
+        var modRole = message.guild.roles.find(r => r.name === 'Seller');
+
+
+
+
+        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');
+
+
+        if(!subChannel) return message.channel.send(':x: | يجب ان يتوفر روم اسمه `submissions`');
+
+
+
+
+        message.channel.send(':timer: | **اكتب اسمك الحقيقي الان من فضلك**').then(msgS => {
+
+
+            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+
+
+                name = collected.first().content;
+
+
+                collected.first().delete();
+
+
+                msgS.edit(':timer: | **من فضلك اكتب عمرك الان**').then(msgS => {
+
+
+                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+
+
+                        age = collected.first().content;
+
+
+                        collected.first().delete();
+
+
+                        msgS.edit(':timer: | **كم مدة استخدامك للديسكورد**').then(msgS => {
+
+
+                            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+
+
+                                dut = collected.first().content;
+
+
+                                collected.first().delete();
+
+
+                                msgS.edit(':timer: | **ليه تبي الرتبة**').then(msgS => {
+
+
+                                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+
+
+                                        fa2dh = collected.first().content;
+
+
+                                        collected.first().delete();
+
+
+                                       msgS.edit(':timer: | **وش مجالك عبر المتجر**').then(msgS => {
+
+
+                                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+
+
+                                        yooo = collected.first().content;
+
+
+                                        collected.first().delete();
+
+
+                                        let embedS = new Discord.RichEmbed()
+
+
+                                        .setAuthor(message.author.tag, message.author.avatarURL)
+
+
+                                        .setThumbnail(message.author.avatarURL)
+
+
+                                        .setDescription('**\n:no_entry: هل انت متأكد انك تريد التقديم؟**')
+
+
+                                        .setColor('GREEN')
+
+
+                                        .addField('الاسم', name, true)
+
+
+                                        .addField('العمر', age, true)
+
+
+                                        .addField('مدة استخدامك للديسكورد', dut, true)
+
+
+                                        .addField('ليش تبي الرتبة', fa2dh, true)
+
+                                        
+
+                                        .addField('وش مجالك عبر المتجر', yooo, true)
+
+
+                                        .setTimestamp()
+
+
+                                        .setFooter(message.guild.name, message.guild.iconURL)
+
+
+
+
+                                        msgS.delete();
+
+
+                                        message.channel.send(embedS).then(msgS => {
+
+
+                                            msgS.react('✅').then(() => msgS.react('❎'))
+
+
+
+
+                                            let yesSure = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+
+
+                                            let no = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
+
+
+
+
+                                            let yesSend = msgS.createReactionCollector(yesSure);
+
+
+                                            let dontSend = msgS.createReactionCollector(no);
+
+
+
+
+                                            yesSend.on('collect', r => {
+
+
+                                                msgS.delete();
+
+
+                                                message.channel.send(':white_check_mark: | تم تقديم طلبك بنجاح انتظر النتيجة في روم results').then(msg => msg.delete(5000));
+
+
+
+
+                                                let subMsg = new Discord.RichEmbed()
+
+
+                                                .setAuthor(message.author.tag, message.author.avatarURL)
+
+
+                                                .setColor('GREEN')
+
+
+                                                .setThumbnail(message.author.avatarURL)
+
+
+                                                .addField('الاسم', name)
+
+
+                                                .addField('العمر', age)
+
+
+                                                .addField('مدة استخدامه للديسكورد', dut)
+
+
+                                                .addField('ليه يبي الرتبة', fa2dh)
+
+                                                
+
+                                                .addField('وش مجالة عبر المتجر', yooo)
+
+
+                                                .addField('حسابه', message.author)
+
+
+                                                .addField('ايدي حسابه', message.author.id, true)
+
+
+
+
+                                                subChannel.send(subMsg).then(msgS => {
+
+
+                                                    msgS.react('✅').then(() => msgS.react('❎'))
+
+
+
+
+                                                    let accept = (reaction, user) => reaction.emoji.name === '✅' && user.id === '470366007748198401'
+
+
+                                                    let noAccept = (reaction, user) => reaction.emoji.name === '❎' && user.id === '470366007748198401'
+
+
+
+
+                                                    let acceptRe = msgS.createReactionCollector(accept);
+
+
+                                                    let noAcceptRe = msgS.createReactionCollector(noAccept);
+
+
+
+
+                                                    acceptRe.on('collect', r => {
+
+
+                                                        msgS.delete();
+
+
+                                                        message.author.send(`:white_check_mark: | تم قبولك بائع بسيرفر **${message.guild.name}**`);
+
+
+                                                        message.guild.member(message.author).addRole(modRole.id);
+
+
+                                                        message.guild.channels.find(r => r.name === 'results').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
+
+
+                                                    }).catch();
+
+
+                                                    noAcceptRe.on('collect', r => {
+
+
+                                                        msgS.delete();
+
+
+                                                        message.author.send(`:x: | تم رفضك بسيرفر **${message.guild.name}**`);
+
+
+                                                        message.guild.channels.find(r => r.name === 'results').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
+
+
+                                                    }).catch();
+
+
+                                                })
+
+
+                                            });
+
+
+                                            dontSend.on('collect', r => {
+
+
+                                                msgS.delete();
+
+
+                                                message.channel.send(':x: | تم الغاء تقديمك');
+
+
+                                            });
+
+
+                                        })
+
+
+                                    })
+
+
+                                })
+
+
+                            })
+
+
+                        })
+
+
+                    })
+
+
+                })
+
+
+            })
+
+
+        })
+
+
+    }
+
+
+});
+
 client.login(process.env.BOT_TOKEN);
 
