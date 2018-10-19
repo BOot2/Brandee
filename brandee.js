@@ -590,7 +590,7 @@ ${prefix}ban
 
 
 
-client.on('message', find(message) {
+client.on('message', function(message) {
 	const myID = "366253963768758272";
     let args = message.content.split(" ").slice(1).join(" ");
     if(message.content.startsWith(prefix + "setname")) {
