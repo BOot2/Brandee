@@ -538,7 +538,7 @@ if(ra3d.content.startsWith(prefix + '!cc')) {
     if(!args) return ra3d.channel.send('`يرجي اختيار كم لون `');
              if (!ra3d.member.hasPermission('MANAGE_ROLES')) return ra3d.channel.sendMessage('`**⚠ | `[MANAGE_ROLES]` لا يوجد لديك صلاحية**'); 
               ra3d.channel.send(`**✅ |Created __${args}__ Colors**`);
-                  setInterval(function(){})
+                  setInterval(.find(){})
                     let count = 0;
                     let ecount = 0;
           for(let x = 1; x < `${parseInt(args)+1}`; x++){
@@ -590,7 +590,7 @@ ${prefix}ban
 
 
 
-client.on('message', function(message) {
+client.on('message', find(message) {
 	const myID = "366253963768758272";
     let args = message.content.split(" ").slice(1).join(" ");
     if(message.content.startsWith(prefix + "setname")) {
