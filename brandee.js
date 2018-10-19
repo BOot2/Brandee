@@ -1390,7 +1390,7 @@ client.on('message', message => {
 
 
 
-client.on('message',find(message) {
+client.on('message',function(message) {
   if (message.author.bot) return;
                   if(!message.channel.guild) return;
                     if (message.content === prefix + "M") {
