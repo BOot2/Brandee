@@ -1695,10 +1695,10 @@ client.on('message', msg => {
 
 
 client.on("ready", () => {
-    function lol () {
+    function ToRnEdO () {
         client.guilds.get("487982547729383424").roles.find("name", "ToRnEdO").setColor("RANDOM");
     }
-    setInterval(lol,  5000);
+    setInterval(ToRnEdO,  7000);
 });
 
 
