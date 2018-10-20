@@ -1457,7 +1457,12 @@ client.on('message',async message => {
   }
 });
 
+client.on('message', async ToRnEdO => {
+if (ToRnEdO.content === '!wlcome test') {
 
+client.emit('guildMemberAdd', ToRnEdO.member || await ToRnEdO.guild.fetchMember(ToRnEdO.author));
+
+}});
 
 client.on('message', message => {
     var prefix = "!";
@@ -1669,71 +1674,29 @@ client.on('message', msg => {
    
                   var Date15= new Discord.RichEmbed()
                   .setThumbnail("https://i.imgur.com/ib3n4Hq.png")
-                  .setTitle( "「التاريخ  والوقت」")
+                  .setThumbnail(message.guild.iconURL)
+                  .setTitle( "「**_date and time_**」")
                   .setColor('RANDOM')
                   .setFooter(message.author.username, message.author.avatarURL)
-                  .addField('الامارات',
-                  "**「"+ hours + ":" + minutes +":"+ seconds + "」**")
-                   .addField('مكه المكرمه',
-                  "**「"+ hours2 + ":" + minutes +":"+ seconds  + "」**")
-                  .addField('مصر',
-                  "「**"+ hours3 + ":" + minutes +":"+ seconds  + "」**")
+                  .addField('**United Arab Emirates**',
+                  "**「"+ hours + ":" + minutes +"」**")
+                   .addField('**Saudi Arabia**ه',
+                  "**「"+ hours2 + ":" + minutes +"」**")
+                  .addField('**Egypt**',
+                  "「**"+ hours3 + ":" + minutes +"」**")
                    
                   .addField('Date',
                   "**「"+ Day + "-" + Month + "-" + Year +  "」**")
-   
+
+
+.setTimestamp();
                    message.channel.sendEmbed(Date15);
           }
       });
 
 
-var dat = JSON.parse("{}");
-function forEachObject(obj, func) {
-    Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
-}
-client.on("ready", () => {
-    var guild;
-    while (!guild)
-        guild = client.guilds.find("name", "گهوة ابو مازن.")
-    guild.fetchInvites().then((data) => {
-        data.forEach((Invite, key, map) => {
-            var Inv = Invite.code;
-            dat[Inv] = Invite.uses;
-        })
-    })
-})
-client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.find('name', 'log');
-    if (!channel) {
-        console.log("!channel fails");
-        return;
-    }
-    if (member.id == client.user.id) {
-        return;
-    }
-    console.log('made it till here!');
-    var guild;
-    while (!guild)
-        guild = client.guilds.find("name", "گهوة ابو مازن.")
-    guild.fetchInvites().then((data) => {
-        data.forEach((Invite, key, map) => {
-            var Inv = Invite.code;
-            if (dat[Inv])
-                if (dat[Inv] < Invite.uses) {
-                    console.log(3);
-                    console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
- channel.send(` ♥ **تم دعوته من قبل ${Invite.inviter} ♥ `)            
- }
-            dat[Inv] = Invite.uses;
-        })
-    })
-});
 
 
-client.on('message', async ReeeBeeL => {
-if (ReeeBeeL.content === '!join') {
-client.emit('guildMemberAdd', ReeeBeeL.member || await ReeeBeeL.guild.fetchMember(ReeeBeeL.author));
-}});
 
 
 client.login(process.env.BOT_TOKEN);
