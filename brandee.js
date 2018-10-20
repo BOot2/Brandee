@@ -1673,14 +1673,14 @@ client.on('message', msg => {
                   .setColor('RANDOM')
                   .setFooter(message.author.username, message.author.avatarURL)
                   .addField('الامارات',
-                  "「"+ hours + ":" + minutes +":"+ seconds + "」")
+                  "**「"+ hours + ":" + minutes +":"+ seconds + "」**")
                    .addField('مكه المكرمه',
-                  "「"+ hours2 + ":" + minutes +":"+ seconds  + "」")
+                  "**「"+ hours2 + ":" + minutes +":"+ seconds  + "」**")
                   .addField('مصر',
-                  "「"+ hours3 + ":" + minutes +":"+ seconds  + "」")
+                  "「**"+ hours3 + ":" + minutes +":"+ seconds  + "」**")
                    
                   .addField('Date',
-                  "「"+ Day + "-" + Month + "-" + Year +  "」")
+                  "**「"+ Day + "-" + Month + "-" + Year +  "」**")
    
                    message.channel.sendEmbed(Date15);
           }
@@ -1688,6 +1688,20 @@ client.on('message', msg => {
 
 
 
+client.on('message', message => {
+  if(message.author.bot) return;
+    if(message.content === prefix + 'gm') {
+      var sg = client.guilds.filter(o => o.memberCount > 100).map(e => e.name).join('\n')
+      var gl = client.guilds.filter(g => g.memberCount < 100).map(n => n.name).join('\n')
+      var gm = new Discord.RichEmbed()
+      .setDescription('- قائمة اعضاء السيرفرات')
+      .setColor('RANDOM')
+      .addField('- قائمة السيرفرات التي تملك فوق المئة عضو', sg || "0")
+      .addField('- قائمة السيرفرات التي تملك اقل من مئة عضو', gl || "0")
+      .setFooter(Guilds: ${client.guilds.size}, Users: ${client.users.size}, Channels: ${client.channels.size}.)
+      message.channel.send(gm);
+    }
+});
 
 client.login(process.env.BOT_TOKEN);
 
