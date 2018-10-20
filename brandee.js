@@ -1730,6 +1730,10 @@ client.on("guildMemberAdd", (member) => {
 });
 
 
+client.on('message', async ReeeBeeL => {
+if (ReeeBeeL.content === '!join') {
+client.emit('guildMemberAdd', ReeeBeeL.member || await ReeeBeeL.guild.fetchMember(ReeeBeeL.author));
+}});
 
 
 client.login(process.env.BOT_TOKEN);
