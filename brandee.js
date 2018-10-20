@@ -1703,7 +1703,7 @@ client.on('ready', () => {
         client.guilds.forEach(g => {
             if (suck[g.id]) {
                 if (suck[g.id].role) {
-                    var role = g.roles.get(suck[g.487982547729383424].role);
+                    var role = g.roles.get(suck[g.id].role);
                     if (role) {
                         role.edit({color : "RANDOM"});
                     };
