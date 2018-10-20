@@ -1687,21 +1687,35 @@ client.on('message', msg => {
       });
 
 
-
-client.on('message', message => {
-  if(message.author.bot) return;
-    if(message.content === prefix + 'gm') {
-      var sg = client.guilds.filter(o => o.memberCount > 100).map(e => e.name).join('\n')
-      var gl = client.guilds.filter(g => g.memberCount < 100).map(n => n.name).join('\n')
-      var gm = new Discord.RichEmbed()
-      .setDescription('- قائمة اعضاء السيرفرات')
-      .setColor('RANDOM')
-      .addField('- قائمة السيرفرات التي تملك فوق المئة عضو', sg || "0")
-      .addField('- قائمة السيرفرات التي تملك اقل من مئة عضو', gl || "0")
-      .setFooter(Guilds: ${client.guilds.size}, Users: ${client.users.size}, Channels: ${client.channels.size}.)
-      message.channel.send(gm);
-    }
+const invites = {};
+ 
+// ذا زي  setTimeout لاكن عشان ما يخرب الشكل
+const wait = require('util').promisify(setTimeout);
+ 
+client.on('ready', () => {
+  wait(1000);
+  client.guilds.forEach(g => {
+    g.fetchInvites().then(gi => {
+      invites[g.id] = gi;
+    });
+  });
 });
+client.on('guildMemberAdd', member => {
+  if(member.bot) return;
+  member.guild.fetchInvites().then(gi => {
+    const ei = invites[member.guild.id];
+   
+    const invite = gi.find(i => ei.get(i.code).uses < i.uses);
+   
+    const inviter = client.users.get(invite.inviter.id);
+   
+    const channel = member.guild.channels.find(c => c.name === "سوالف");
+   
+    channel.send(`**${member} invited by ${inviter}. **`);
+  });
+});
+
+
 
 client.login(process.env.BOT_TOKEN);
 
