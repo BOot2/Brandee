@@ -1335,19 +1335,19 @@ client.on('message', message => {//for dev
   var argresult = message.content.split(` `).slice(1).join(' ');
     if (!devs.includes(message.author.id)) return;
 
-if (message.content.startsWith(adminprefix + 'setgame')) {
+if (message.content.startsWith(adminprefix + 'setg')) {
   client.user.setGame(argresult);   message.channel.sendMessage(`**${argresult} The bot playing has been changed to**`)
 } else
-  if (message.content.startsWith(adminprefix + 'setname')) {
+  if (message.content.startsWith(adminprefix + 'setNAME')) {
 client.user.setUsername(argresult).then
     message.channel.sendMessage(`**${argresult}** : The name of the bot has been changed to`)
 return message.reply("**You can not change the name. You must stay for two hours . . . **");
 } else
-  if (message.content.startsWith(adminprefix + 'setavatar')) {
+  if (message.content.startsWith(adminprefix + 'setAV')) {
 client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : The bot image has been changed`);
       } else
-if (message.content.startsWith(adminprefix + 'setT')) {
+if (message.content.startsWith(adminprefix + 'setTW')) {
   client.user.setGame(argresult, "https://www.twitch.tv/istvzazi");
     message.channel.sendMessage(`**Twitch has been changed to ${argresult}**`)
 }
