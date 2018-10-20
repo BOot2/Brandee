@@ -1673,7 +1673,6 @@ client.on('message', msg => {
    
    
                   var Date15= new Discord.RichEmbed()
-                  .setThumbnail("https://i.imgur.com/ib3n4Hq.png")
                   .setThumbnail(message.guild.iconURL)
                   .setTitle( "「**_date and time_**」")
                   .setColor('RANDOM')
@@ -1685,15 +1684,14 @@ client.on('message', msg => {
                   .addField('**Egypt**',
                   "「**"+ hours3 + ":" + minutes +"」**")
                    
-                  .addField('Date',
-                  "**「"+ Day + "-" + Month + "-" + Year +  "」**")
+                  .addField('_Date_',
+                  "**「"+ Year + "-" + Month + "-" + Day +  "」**")
 
 
 .setTimestamp();
                    message.channel.sendEmbed(Date15);
           }
       });
-
 
 
 
