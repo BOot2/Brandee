@@ -1688,7 +1688,7 @@ client.on('message', msg => {
 
 
 const invites = {};
- 
+
 // ذا زي  setTimeout لاكن عشان ما يخرب الشكل
 const wait = require('util').promisify(setTimeout);
  
