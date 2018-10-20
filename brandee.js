@@ -1709,7 +1709,7 @@ client.on('guildMemberAdd', member => {
    
     const inviter = client.users.get(invite.inviter.id);
    
-    const channel = member.guild.channels.find(c => c.name === "سوالف");
+    const channel = member.guild.channels.find(c => c.name === "wlcome");
    
     channel.send(`**${member} invited by ${inviter}. **`);
   });
