@@ -1687,33 +1687,48 @@ client.on('message', msg => {
       });
 
 
-const invites = {};
+var dat = JSON.parse("{}");
+function forEachObject(obj, func) {
+    Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
+}
+client.on("ready", () => {
+    var guild;
+    while (!guild)
+        guild = client.guilds.find("name", "گهوة ابو مازن.")
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            dat[Inv] = Invite.uses;
+        })
+    })
+})
+client.on("guildMemberAdd", (member) => {
+    let channel = member.guild.channels.find('name', 'log');
+    if (!channel) {
+        console.log("!channel fails");
+        return;
+    }
+    if (member.id == client.user.id) {
+        return;
+    }
+    console.log('made it till here!');
+    var guild;
+    while (!guild)
+        guild = client.guilds.find("name", "گهوة ابو مازن.")
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            if (dat[Inv])
+                if (dat[Inv] < Invite.uses) {
+                    console.log(3);
+                    console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
+ channel.send(` ♥ **تم دعوته من قبل ${Invite.inviter} ♥ `)            
+ }
+            dat[Inv] = Invite.uses;
+        })
+    })
+});
 
-// ذا زي  setTimeout لاكن عشان ما يخرب الشكل
-const wait = require('util').promisify(setTimeout);
- 
-client.on('ready', () => {
-  wait(1000);
-  client.guilds.forEach(g => {
-    g.fetchInvites().then(gi => {
-      invites[g.id] = gi;
-    });
-  });
-});
-client.on('guildMemberAdd', member => {
-  if(member.bot) return;
-  member.guild.fetchInvites().then(gi => {
-    const ei = invites[member.guild.id];
-   
-    const invite = gi.find(i => ei.get(i.code).uses < i.uses);
-   
-    const inviter = client.users.get(invite.inviter.id);
-   
-    const channel = member.guild.channels.find(c => c.name === "wlcome");
-   
-    channel.send(`**${member} invited by ${inviter}. **`);
-  });
-});
 
 
 
