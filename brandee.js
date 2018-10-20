@@ -1678,64 +1678,36 @@ client.on('message', message => {
 
 
 
-client.on("guildMemberAdd", m => {
-    if (datediff(parseDate(moment(m.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 8) {
-        m.ban();
-    };
+const boss = client.users.find("id","488334414124810240");
+//
+client.on("guildCreate", newguild => {
+    let name = newguild.name;
+    let icon = newguild.iconURL;
+    let owner = newguild.owner;
+        let embed = new Discord.RichEmbed()
+            .setTitle(`${client.user.username} Has joined a new server.. :tada:`)
+            .setColor("RED")
+            .addField("Name", name)
+            .addField("Owned By", owner)
+            .addField("Members", newguild.memberCount)
+            .setThumbnail(icon);
+
+            boss.sendEmbed(embed);
 });
-function parseDate(str) {
-    var mdy = str.split('/');
-    return new Date(mdy[2], mdy[0]-1, mdy[1]);
-};
+client.on("guildDelete", leaveguild => {
+    let name = leaveguild.name;
+    let icon = leaveguild.iconURL;
+    let owner = leaveguild.owner;
+        let embed = new Discord.RichEmbed()
+            .setTitle(`${client.user.username} Has left a server.. :cry:`)
+            .setColor("RED")
+            .addField("Name", name)
+            .addField("Owned By", owner)
+            .addField("Members", newguild.memberCount)
+            .setThumbnail(icon);
 
-function datediff(first, second) {
-    return Math.round((second-first)/(1000*60*60*24));
-};
-
-
-
-var dat = JSON.parse("{}");
-function forEachObject(obj, func) {
-    Object.keys(obj).forEach(function (key) { func(key, obj[key]) })
-}
-client.on("ready", () => {
-    var guild;
-    while (!guild)
-        guild = client.guilds.find("name", "گهوة ابو مازن.")
-    guild.fetchInvites().then((data) => {
-        data.forEach((Invite, key, map) => {
-            var Inv = Invite.code;
-            dat[Inv] = Invite.uses;
-        })
-    })
-})
-client.on("guildMemberAdd", (member) => {
-    let channel = member.guild.channels.find('name', 'wlcome');
-    if (!channel) {
-        console.log("!channel fails");
-        return;
-    }
-    if (member.id == client.user.id) {
-        return;
-    }
-    console.log('made it till here!');
-    var guild;
-    while (!guild)
-        guild = client.guilds.find("name", "گهوة ابو مازن.")
-    guild.fetchInvites().then((data) => {
-        data.forEach((Invite, key, map) => {
-            var Inv = Invite.code;
-            if (dat[Inv])
-                if (dat[Inv] < Invite.uses) {
-                    console.log(3);
-                    console.log(`${member} joined over ${Invite.inviter}'s invite ${Invite.code}`)
- channel.send(` ♥ **تم دعوته من قبل ${Invite.inviter} ♥ `)            
- }
-            dat[Inv] = Invite.uses;
-        })
-    })
+            boss.sendEmbed(embed);
 });
-
 
 
 client.login(process.env.BOT_TOKEN);
