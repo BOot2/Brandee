@@ -4,7 +4,7 @@ const moment = require('moment');
 const fs = require('fs'); // npm i fs
 const ms = require('ms'); // npm i ms
 const child_process = require('child_process')
-
+const codes = require('codes'); // npm i ms
 const prefix = '!'
 
 client.on('ready', () => {
