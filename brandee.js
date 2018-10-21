@@ -1625,66 +1625,74 @@ client.on('message', msg => {
 
  
 
-
-
-client.on("message", async message => {
-            if(!message.channel.guild) return;
-            var prefix = "!";
-        if(message.content.startsWith(prefix + 'invites')) {
-        var nul = 0
-        var guild = message.guild
-        await guild.fetchInvites()
-            .then(invites => {
-             invites.forEach(invite => {
-                if (invite.inviter === message.author) {
-                     nul+=invite.uses
-                    }
-                });
-            });
-          if (nul > 0) {
-              console.log(`\n${message.author.tag} has ${nul} invites in ${guild.name}\n`)
-              var embed = new Discord.RichEmbed()
-                  .setColor("#000000")
-                    .addField(`${message.author.username}`, `لقد قمت بدعوة **${nul}** شخص`)
-                          message.channel.send({ embed: embed });
-                      return;
-                    } else {
-                       var embed = new Discord.RichEmbed()
-                        .setColor("#000000")
-                        .addField(`${message.author.username}`, `لم تقم بدعوة أي شخص لهذة السيرفر`)
-
-                       message.channel.send({ embed: embed });
-                        return;
-                    }
+client.on("message",function(message) {
+	var prefix = "!";
+    if(message.content.startsWith(prefix + 'bot')) {
+        var uptime = client.uptime;
+ 
+    var days = 0;
+    var hours = 0;
+    var minutes = 0;
+    var seconds = 0;
+    var notCompleted = true;
+ 
+    while (notCompleted) {
+ 
+        if (uptime >= 8.64e+7) {
+ 
+            days++;
+            uptime -= 8.64e+7;
+ 
+        } else if (uptime >= 3.6e+6) {
+ 
+            hours++;
+            uptime -= 3.6e+6;
+ 
+        } else if (uptime >= 60000) {
+ 
+            minutes++;
+            uptime -= 60000;
+ 
+        } else if (uptime >= 1000) {
+            seconds++;
+            uptime -= 1000;
+ 
         }
-        if(message.content.startsWith(prefix + 'invite-codes')) {
-let guild = message.guild
-message.channel.send(":postbox: **لقد قمت بأرسال جميع روابط الدعوات التي قمت بأنشائها في الخاص**")
-guild.fetchInvites()
-.then(invites => {
-invites.forEach(invite => {
-if (invite.inviter === message.author) {
-clinet.push(`discord.gg/${invite.code}`)
+ 
+        if (uptime < 1000)  notCompleted = false;
+ 
+    }
+ 
+var v1 = new Discord.RichEmbed()
+  v1.setTimestamp(new Date())
+  v1.setColor("#6a109d")
+  v1.setDescription('***__ انتظر .. جاري الحصول علي البيانات __***')
+  v1.setFooter("# | By T O R N E D O |")
+var heroo = new Discord.RichEmbed()
+.setColor('#6a109d')
+.setTimestamp(new Date())
+.setThumbnail(client.user.avatarURL)
+.setTitle('KINGS NEVER DIE')
+.setURL('!')
+.setAuthor(client.user.username,client.user.avatarURL)
+.addField("**البرفكس** :",`**[ ${prefix} ]**`,true)
+.addField("**السيرفرات** :","**[ "+client.guilds.size+" ]**",true)
+.addField("**القنوات** :","**[ "+client.channels.size+" ]**",true)
+.addField("**المستخدمين** :","**[ "+client.users.size+" ]**",true)
+.addField("**اسم البوت** : ","**[ "+client.user.username+" ]**",true)
+.addField("**ايدي البوت **:","**[ "+client.user.id+" ]**",true)
+.addField("**الحجم المستخدم** :",`**[ ${(process.memoryUsage().rss / 1048576).toFixed()}MB ]**`,true)
+.addField("**موعد الاقلاع** :",`**[** **Days:** \`${days}\` **Hours:** \`${hours}\` **Minutes:** \`${minutes}\` **Seconds:** \`${seconds}\` **]**`,true)
+.setFooter("Sliver team  |");
+  message.channel.send({embed:v1}).then(m => {
+      setTimeout(() => {
+         m.edit({embed:heroo});
+      },3000);
+  });
 }
-})
-}).then(m => {
-if (codes.length < 0) {
-    var embed = new Discord.RichEmbed()
-.setColor("#000000")
-.addField(`Your invite codes in ${message.guild.name}`, `You currently don't have any active invites! Please create an invite and start inviting, then you will be able to see your codes here!`)
-message.author.send({ embed: embed });
-return;
-} else {
-    var embed = new Discord.RichEmbed()
-.setColor("#000000")
-.addField(`Your invite codes in ${message.guild.name}`, `Invite Codes:\n${codes.join("\n")}`)
-message.author.send({ embed: embed });
-return;
-}
-})
-}
-
 });
+
+
 
 
 
