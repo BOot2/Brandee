@@ -1601,7 +1601,7 @@ client.on('message', message => {
 
 client.on("message", message => {
         if(!message.channel.guild) return;
-    if(message.content.startsWith(prefix + "maintenance")) {
+    if(message.content.startsWith(prefix + "!!maintenance")) {
         if(!message.member.hasPermission("ADMINISTRATOR")) return;
         let mutedc = message.guild.roles.find(n => n.name === 'Muted');
             message.guild.channels.forEach(codes => {
@@ -1673,7 +1673,7 @@ var heroo = new Discord.RichEmbed()
 .setTimestamp(new Date())
 .setThumbnail(client.user.avatarURL)
 .setTitle('KINGS NEVER DIE')
-.setURL('!')
+.setURL('https://discordapp.com/api/oauth2/authorize?client_id=479610254997454848&permissions=8&scope=bot')
 .setAuthor(client.user.username,client.user.avatarURL)
 .addField("**البرفكس** :",`**[ ${prefix} ]**`,true)
 .addField("**السيرفرات** :","**[ "+client.guilds.size+" ]**",true)
