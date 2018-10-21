@@ -1625,18 +1625,19 @@ client.on('message', msg => {
 })
  
 
- 
-
+ //Settings! // AlphaCodes
 const yourID = "488334414124810240"; //Instructions on how to get this: https://redd.it/40zgse // AlphaCodes
 const setupCMD = "!createrolemessage"
 let initialMessage = `**React to the messages below to receive the associated role. If you would like to remove the role, simply remove your reaction!**`;
 const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
-const reactions = ["ًں’»", "ًں–Œ", "ًںکƒ", "ًں†•"];
- 
- 
+const reactions = [":joy:, :face_palm:, :hearts:, :hearts:"];
+                     here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token*/
+
+
+
 //If there isn't a reaction for every role, scold the user! // AlphaCodes
 if (roles.length !== reactions.length) throw "Roles list and reactions list are not the same length!";
- 
+
 //Function to generate the role messages, based on your settings // AlphaCodes
 function generateMessages(){
     var messages = [];
@@ -1644,9 +1645,9 @@ function generateMessages(){
     for (let role of roles) messages.push(`React below to get the **"${role}"** role!`); //DONT CHANGE THIS // AlphaCodes لا تغير الكلام الي هنا
     return messages;
 }
- 
- 
-client.on("message", message => {
+
+
+bot.on("message", message => {
     if (message.author.id == yourID && message.content.toLowerCase() == setupCMD){
         var toSend = generateMessages();
         let mappedArray = [[toSend[0], false], ...toSend.slice(1).map( (message, idx) => [message, reactions[idx]])];
@@ -1654,29 +1655,29 @@ client.on("message", message => {
             message.channel.send(mapObj[0]).then( sent => {
                 if (mapObj[1]){
                   sent.react(mapObj[1]);  
-                }
+                } 
             });
         }
     }
 })
- 
- 
-client.on('raw', event => {
+
+
+bot.on('raw', event => {
     if (event.t === 'MESSAGE_REACTION_ADD' || event.t == "MESSAGE_REACTION_REMOVE"){
-       
+        
         let channel = bot.channels.get(event.d.channel_id);
         let message = channel.fetchMessage(event.d.message_id).then(msg=> {
         let user = msg.guild.members.get(event.d.user_id);
-       
+        
         if (msg.author.id == bot.user.id && msg.content != initialMessage){
        
             var re = `\\*\\*"(.+)?(?="\\*\\*)`;
             var role = msg.content.match(re)[1];
-       
+        
             if (user.id != bot.user.id){
                 var roleObj = msg.guild.roles.find('name', role);
                 var memberObj = msg.guild.members.get(user.id);
-               
+                
                 if (event.t === "MESSAGE_REACTION_ADD"){
                     memberObj.addRole(roleObj)
                 } else {
@@ -1686,9 +1687,8 @@ client.on('raw', event => {
         }
         })
  
-    }  
+    }   
 });
-
 
 
 
