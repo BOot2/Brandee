@@ -1617,7 +1617,6 @@ client.on("message", message => {
     }
 });
 
-
 client.on('message', msg => {
     if(msg.content === '!') {
         msg.reply('Hi')
@@ -1625,37 +1624,38 @@ client.on('message', msg => {
 })
  
 
+client.on('message', message => {                      
+    if(!message.channel.guild) return;
+       if(message.content.startsWith(prefix + 'active')) {
+        let modlog = client.channels.find('name', '𝐀𝐂𝐓𝐈𝐕𝐄');
+       if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+       message.channel.sendMessage(`اضغط على (✅) عشان تتفعل`).then(msg => {
+       
+       
+        msg.react('✅')
+       .then(() => msg.react('✅'))
+     
+     
+ 
+       let activeFilter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+     
+       let active = msg.createReactionCollector(activeFilter, { time: 15000 });
+     
+                                                       
+                               active.on("collect", r => {
+                                   message.member.addRole(message.guild.roles.find("name", ",👥Member"));
+                                   message.member.removeRole(message.guild.roles.find("name", ",✖️not active"));
+                                   msg.delete();
+                                   message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
+     
+                                   })
+                                   })
+                                   }
+                                   });
+ 
+ 
 
-client.on('message', message => {
-    if (message.content.startsWith(prefix + 'emojilist')) {
- 
-        const List = message.guild.emojis.map(e => e.toString()).join(" ");
- 
-        const EmojiList = new Discord.RichEmbed()
-            .setTitle('➠ Emojis')
-            .setAuthor(message.guild.name, message.guild.iconURL)
-            .setColor('RANDOM')
-            .setDescription(List)
-            .setFooter(message.guild.name)
-        message.channel.send(EmojiList)
-    }
-});
- 
- 
 
- client.on('message', message => {
-    if (message.author.bot) return;
-    if (message.content.indexOf('!عكس') === 0) {
-        var text = message.content.substring(1);
-        var reversed = '';
-        var i = text.length;
-        while (i > 0) {
-            reversed += text.substring(i - 1, i);
-            i--;
-        }
-        message.reply(reversed);
-    }
-});
 
 
 
