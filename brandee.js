@@ -1641,7 +1641,7 @@ client.on("message", async message => {
       var role = message.guild.roles.find( role => { return role.name == args[0] });
       if(!role) return message.channel.send(`no role with name ${definedRoleName} found, make sure you entered correct name`);
       if(definedReactionRole != null  || !stopReacord) return message.channel.send("another reaction role request is running");
-      message.channel.send(`**اضغط على الرياكشن لأخذ الرتبة ${role.name}`);
+      message.channel.send(`**اضغط على الرياكشن لأخذ الرتبة ** ${role.name}`);
       definedReactionRole = role;
       stopReacord = false;
     }    
