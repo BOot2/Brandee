@@ -1627,7 +1627,7 @@ client.on('message', msg => {
 
 
 client.on('message', message => {
-    if (message.content.startsWith(PREFIX + 'emojilist')) {
+    if (message.content.startsWith(prefix + 'emojilist')) {
  
         const List = message.guild.emojis.map(e => e.toString()).join(" ");
  
@@ -1643,6 +1643,19 @@ client.on('message', message => {
  
  
 
+ client.on('message', message => {
+    if (message.author.bot) return;
+    if (message.content.indexOf('!عكس') === 0) {
+        var text = message.content.substring(1);
+        var reversed = '';
+        var i = text.length;
+        while (i > 0) {
+            reversed += text.substring(i - 1, i);
+            i--;
+        }
+        message.reply(reversed);
+    }
+});
 
 
 
