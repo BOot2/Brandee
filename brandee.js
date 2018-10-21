@@ -1626,7 +1626,7 @@ client.on('message', msg => {
 
  
 client.on('guildMemberAdd', member => {
-    let channel = member.guild.channels.find('name', 'welcome👋🏼');
+    let channel = member.guild.channels.find('name', 'welcome');
     let memberavatar = member.user.avatarURL
       if (!channel) return;
     let embed = new Discord.RichEmbed()
@@ -1643,7 +1643,7 @@ client.on('guildMemberAdd', member => {
     .addField('مدة انشاء حسابك', member.user.createdAt.toLocaleString(), true)
  
                                        
-     .setFooter("LGEGND TIME :L")
+     .setFooter("TORNEDO :L")
         .setTimestamp()
    
       channel.sendEmbed(embed);
