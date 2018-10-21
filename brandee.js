@@ -1624,8 +1624,6 @@ client.on('message', msg => {
     }
 })
  
-
-
 client.on('message', msg => {
     if(msg.content.startsWith('!LINK BOT')) {
 if(message.author.id !== '488334414124810240') return;
@@ -1637,7 +1635,13 @@ msg.channel.send(`**Bot InviteURL : ** https://discordapp.com/oauth2/authorize?c
     }
 });
 
-
+client.on('ready',async () => {
+let streaming = [`!𝐡𝐞𝐥𝐩 `, `البعير شو `, `𝐈𝐧 ${client.guilds.size} 𝐒𝐞𝐫𝐯𝐞𝐫𝐬`];
+client.user.setActivity(streaming[Math.floor(Math.random() * streaming.length)], {type: 1, url: "https://www.twitch.tv/brokenklash"});
+setInterval(() => {
+client.user.setActivity(streaming[Math.floor(Math.random() * streaming.length)], {type: 1, url: "https://www.twitch.tv/brokenklash"});
+}, 5000);
+});
 
 
 
