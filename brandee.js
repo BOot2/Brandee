@@ -1636,7 +1636,7 @@ const bot = new Discord.Client();
 
 
 //If there isn't a reaction for every role, scold the user! // AlphaCodes
-if (roles.length !== reactions.length) throw "Roles list and reactions list are not the same length!";
+if (roles.length !== reactions.length)throw "Roles list and reactions list are not the same length!";
 
 //Function to generate the role messages, based on your settings // AlphaCodes
 function generateMessages(){
