@@ -1628,22 +1628,6 @@ client.on('message', msg => {
  
 
 
-client.on('message' , async (message) => {
- if (message.content.startsWith(prefix + 'w')) {
-  const args = message.content.substring(prefix.length).split(' ');
-
- message.delete();
-args.shift() 
-let msg = args.join(' ') 
-message.channel.createWebhook(message.author.username, message.author.avatarURL) 
-    .then(wb => {
-        const user = new Discord.WebhookClient(wb.id, wb.token) 
-        user.send(msg); 
-        user.delete() 
-    })
-    .catch(console.error)
- }
-});
 
 
 
