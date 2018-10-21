@@ -1633,6 +1633,7 @@ const roles = ["Hacker", "Artist", "Public Relations", "Intern"];
 const reactions = [":joy:, :face_palm:, :hearts:, :hearts:"];
                      here https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token*/
 
+const bot = new Discord.Client();
 
 
 //If there isn't a reaction for every role, scold the user! // AlphaCodes
