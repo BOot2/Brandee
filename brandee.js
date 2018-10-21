@@ -1627,28 +1627,45 @@ client.on('message', msg => {
 
  
 
- client.on('message', message => {
-	 var prefix ="!";
- if(message.content.startsWith(prefix +"!!؟؟")){
-if(!message.channel.guild) return message.reply(' ');
-const millis = new Date().getTime() - message.guild.createdAt.getTime();
-const now = new Date();
-dateFormat(now, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
-const verificationLevels = ['None', 'Low', 'Medium', 'Insane', 'Extreme'];
-const days = millis / 1000 / 60 / 60 / 24;
-let roles = client.guilds.get(message.guild.id).roles.map(r => r.name);
-var embed  = new Discord.RichEmbed()
-.setAuthor(message.guild.name, message.guild.iconURL)
-.addField("**🆔 Server ID:**", message.guild.id,true)
-.addField("**📅 Created On**", message.guild.createdAt.toLocaleString(),true)
-.addField("**👑 Owned by**",`${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`)
-.addField("👥 Members ",`[${message.guild.memberCount}]`,true)
-.addField('**💬 Channels **',`**${message.guild.channels.filter(m => m.type === 'text').size}**` + ' text | Voice  '+ `**${message.guild.channels.filter(m => m.type === 'voice').size}** `,true)
-.addField("**🌍 Others **" , message.guild.region,true)
-.addField("** 🔐 Roles **",`**[${message.guild.roles.size}]** Role `,true)
-.setColor('#000000')
-message.channel.sendEmbed(embed)
 
+client.on("message", function(message) {
+	var prefix = "!";
+   if(message.content.startsWith(prefix + "rps")) {
+    let messageArgs = message.content.split(" ").slice(1).join(" ");
+    let messageRPS = message.content.split(" ").slice(2).join(" ");
+    let arrayRPS = ['**# - Rock**','**# - Paper**','**# - Scissors**'];
+    let result = `${arrayRPS[Math.floor(Math.random() * arrayRPS.length)]}`;
+    var RpsEmbed = new Discord.RichEmbed()
+    .setAuthor(message.author.username)
+    .setThumbnail(message.author.avatarURL)
+    .addField("Rock","🇷",true)
+    .addField("Paper","🇵",true)
+    .addField("Scissors","🇸",true)
+    message.channel.send(RpsEmbed).then(msg => {
+        msg.react(' 🇷')
+        msg.react("🇸")
+        msg.react("🇵")
+.then(() => msg.react('🇷'))
+.then(() =>msg.react('🇸'))
+.then(() => msg.react('🇵'))
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '🇷' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '🇸' && user.id === message.author.id;
+let reaction3Filter = (reaction, user) => reaction.emoji.name === '🇵' && user.id === message.author.id;
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+	    
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+let reaction3 = msg.createReactionCollector(reaction3Filter, { time: 12000 });
+reaction1.on("collect", r => {
+        message.channel.send(result)
+})
+reaction2.on("collect", r => {
+        message.channel.send(result)
+})
+reaction3.on("collect", r => {
+        message.channel.send(result)
+})
+
+    })
 }
 });
 
