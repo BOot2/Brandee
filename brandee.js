@@ -1624,35 +1624,30 @@ client.on('message', msg => {
 })
  
 
-client.on('message', message => {                      
-    if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'active')) {
-        let modlog = client.channels.find('name', '𝐀𝐂𝐓𝐈𝐕𝐄');
-       if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
-       message.channel.sendMessage(`اضغط على (✅) عشان تتفعل`).then(msg => {
-       
-       
-        msg.react('✅')
-       .then(() => msg.react('✅'))
-     
-     
  
-       let activeFilter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-     
-       let active = msg.createReactionCollector(activeFilter, { time: 15000 });
-     
-                                                       
-                               active.on("collect", r => {
-                                   message.member.addRole(message.guild.roles.find("name", ",👥Member"));
-                                   message.member.removeRole(message.guild.roles.find("name", ",✖️not active"));
-                                   msg.delete();
-                                   message.channel.send(`**تم تفعيلك استمتع.**`).then(m => m.delete(1000));
-     
-                                   })
-                                   })
-                                   }
-                                   });
+client.on('guildMemberAdd', member => {
+    let channel = member.guild.channels.find('name', 'welcome👋🏼');
+    let memberavatar = member.user.avatarURL
+      if (!channel) return;
+    let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(memberavatar)
+        .addField('🎽 | name :  ',`${member}`)
+        .addField('📢 | نورت السيرفر ي قلبي' , `Welcome to the server, ${member}`)
+        .addField('🆔 | user :', "**[" + `${member.id}` + "]**" )
+                .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
+               
+                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
+                     
+                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
+    .addField('مدة انشاء حسابك', member.user.createdAt.toLocaleString(), true)
  
+                                       
+     .setFooter("LGEGND TIME :L")
+        .setTimestamp()
+   
+      channel.sendEmbed(embed);
+    });
  
 
 
