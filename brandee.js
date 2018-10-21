@@ -1626,7 +1626,21 @@ client.on('message', msg => {
  
 
 
-
+client.on('message', message => {
+    if (message.content.startsWith(PREFIX + 'emojilist')) {
+ 
+        const List = message.guild.emojis.map(e => e.toString()).join(" ");
+ 
+        const EmojiList = new Discord.RichEmbed()
+            .setTitle('➠ Emojis')
+            .setAuthor(message.guild.name, message.guild.iconURL)
+            .setColor('RANDOM')
+            .setDescription(List)
+            .setFooter(message.guild.name)
+        message.channel.send(EmojiList)
+    }
+});
+ 
  
 
 
