@@ -1628,9 +1628,6 @@ client.on('message', msg => {
 
 
 
-if(!Discord) var Discord = require('discord.js');
-if(!client) var client = new Discord.Client();
-if(!prefix) var prefix = "-" ; // البرفكس 
 
 var stopReacord = true;
 var reactionRoles = [];
