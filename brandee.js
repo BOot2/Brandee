@@ -1624,24 +1624,25 @@ client.on('message', msg => {
     }
 })
  
-client.on('message', msg => {
-    if(msg.content.startsWith('!LINK BOT')) {
-if(message.author.id !== '488334414124810240') return;
-    if(msg.channel.type === 'dm') return;
-const user = msg.mentions.users.first();
-if(!user) return msg.channel.send('``' + '**قم بتحديد بوت**' + '``')
-if(!user.bot) return msg.reply('\`منشن بوت\`');
-msg.channel.send(`**Bot InviteURL : ** https://discordapp.com/oauth2/authorize?client_id=${user.id}&scope=bot&permissions=384064`)
+
+
+ client.on("message", message => {
+    if(message.content.startsWith(prefix + "!?!")) {
+        if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send("**ليس لديك البرمشن المطلوب لاستخدام هذا الامر ❌**");
+        const embed = new Discord.RichEmbed()
+        .setAuthor(message.guild.name, message.guild.iconURL)
+        .setColor("RANDOM")
+ 
+.addField('**عدد اعضاء السيرفر 👤 **' , `${message.guild.memberCount}`)
+.addField('**اونر السيرفر 👑**' , `${message.guild.owner.user.username}`)
+.addField(`**الرومات :scroll: **`,true)
+.addField(`# الكتابية`, `${message.guild.channels.filter(m => m.type === 'text').size}`)
+.addField( `:loud_sound: الصوتية`,`${message.guild.channels.filter(m => m.type === 'voice').size}`)
+.addField(`**عدد الرتب**:briefcase:`,`${message.guild.roles.size}`)
+        message.channel.send({embed:embed})
     }
 });
-
-client.on('ready',async () => {
-let streaming = [`!𝐡𝐞𝐥𝐩 `, `البعير شو `, `𝐈𝐧 ${client.guilds.size} 𝐒𝐞𝐫𝐯𝐞𝐫𝐬`];
-client.user.setActivity(streaming[Math.floor(Math.random() * streaming.length)], {type: 1, url: "https://www.twitch.tv/brokenklash"});
-setInterval(() => {
-client.user.setActivity(streaming[Math.floor(Math.random() * streaming.length)], {type: 1, url: "https://www.twitch.tv/brokenklash"});
-}, 5000);
-});
+ 
 
 
 
